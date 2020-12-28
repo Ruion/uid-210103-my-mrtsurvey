@@ -1,0 +1,51 @@
+{
+  "fileName": "VendingMachineDatabaseModel",
+  "folderPath": "C:\\UID-APP\\191209-MY-GentingVM",
+  "dbName": "VendingMachineDatabaseModel",
+  "tableName": "VendingMachineDatabaseModel",
+  "columns": [
+    {
+      "name": "id",
+      "attribute": "INTERGER PRIMARY KEY",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "name",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": "Motor"
+    },
+    {
+      "name": "quantity",
+      "attribute": "INTEGER",
+      "sync": false,
+      "dummyPrefix": "1"
+    },
+    {
+      "name": "lane",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "is_disabled",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": "true"
+    },
+    {
+      "name": "item_limit",
+      "attribute": "INTEGER",
+      "sync": false,
+      "dummyPrefix": ""
+    }
+  ],
+  "sendURL": "",
+  "sendAPI": "",
+  "serverResponsesArray": [],
+  "hasMultipleLocalDB": false,
+  "keyDownloadAPI": "",
+  "keyFileName": "VendingMachineDatabaseModel Online",
+  "serverEmailFilePath": ""
+}

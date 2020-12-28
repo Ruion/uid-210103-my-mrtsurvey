@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8936311120894992475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8936311120894992473}
+  - component: {fileID: 1556465688544172219}
+  - component: {fileID: 7610391580308212332}
+  m_Layer: 0
+  m_Name: VendingMachineDatabaseModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8936311120894992473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936311120894992475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1556465688544172219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936311120894992475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16bb4057fb3060a498ba719f5ea10967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: db_connection
+      Entry: 7
+      Data: 0|Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sqlitedb_connection
+      Entry: 7
+      Data: 1|Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite
+    - Name: 
+      Entry: 8
+      Data: 
+  dbSettings:
+    fileName: VendingMachineDatabaseModel
+    folderPath: C:\UID-APP\200202-MY-Genting
+    dbName: VendingMachineDatabaseModel
+    tableName: VendingMachineDatabaseModel
+    columns:
+    - name: id
+      attribute: INTERGER PRIMARY KEY
+      sync: 0
+      dummyPrefix: 
+    - name: name
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: Motor
+    - name: quantity
+      attribute: INTEGER
+      sync: 0
+      dummyPrefix: 1
+    - name: lane
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    - name: is_disabled
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: true
+    - name: item_limit
+      attribute: INTEGER
+      sync: 0
+      dummyPrefix: 
+    - name: voucher_code
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    sendURL: http://200202-my-genting.uid-testing.space/public/api/
+    sendAPI: 
+    serverResponsesArray: []
+    hasMultipleLocalDB: 0
+    keyDownloadAPI: download-used-redeem-code-list
+    keyFileName: VendingMachineDatabaseModel Online
+    serverEmailFilePath: 
+  db_connection_string: URI = file:C:/UID_Projects/demogames/demogames/Assets/StreamingAssets/db_racing_stock.sql
+  numberToPopulate: 35
+  TestIndex: 4
+  selectCustomCondition: quantity >= 1 AND is_disabled = 'false'
+  hasSync: 0
+  emptyHandler: {fileID: 0}
+  internetErrorHandler: {fileID: 0}
+  errorHandler: {fileID: 0}
+  blockDataHandler: {fileID: 0}
+  successBar: {fileID: 0}
+  failBar: {fileID: 0}
+  entityId: 0
+  serverEmailList: []
+  isFetchingData: 0
+  OnSyncStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSyncEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  stockErrorHandler: {fileID: 0}
+  vm: {fileID: 7610391580308212332}
+  item_id: 1
+  item_name: Motor_0
+  item_quantity: 0
+  item_limit: 0
+  item_lane: 0
+  quantityPerLane: 2
+  textHint: {fileID: 0}
+  OnOutOfStock:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStockGiven:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTestEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  text_: {fileID: 0}
+  giftName: {fileID: 0}
+  autoDropInterval: 10
+  autoDropCycle: 1
+  isTest: 0
+  dropIntervalField: {fileID: 0}
+  dropQuantityField: {fileID: 0}
+  dropCycleField: {fileID: 0}
+--- !u!114 &7610391580308212332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8936311120894992475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f71d08747a356245ac9cd5bc923b7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VMSerialPortWriteType: 0
+  vmserialPortText: 
+  portname: 0
+  portbaudrate: 115200
+  vmOperateRecordDB: {fileID: 0}
+  onMotorTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  onMotorFail:
+    m_PersistentCalls:
+      m_Calls: []

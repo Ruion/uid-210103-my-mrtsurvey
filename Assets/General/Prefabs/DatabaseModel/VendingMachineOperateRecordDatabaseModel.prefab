@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6810726604039476655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6810726604039476653}
+  - component: {fileID: 7876206507271332010}
+  m_Layer: 0
+  m_Name: VendingMachineOperateRecordDatabaseModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6810726604039476653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810726604039476655}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7876206507271332010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810726604039476655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfaff9e7d5bc374d95d9032289f31a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: db_connection
+      Entry: 6
+      Data: 
+    - Name: sqlitedb_connection
+      Entry: 6
+      Data: 
+  dbSettings:
+    fileName: VendingMachineOperateRecordDatabaseModel
+    folderPath: C:\UID-APP\191209-MY-GentingVM
+    dbName: VendingMachineOperateRecordDatabaseModel
+    tableName: VendingMachineOperateRecordDatabaseModel
+    columns:
+    - name: id
+      attribute: INTERGER PRIMARY KEY
+      sync: 0
+      dummyPrefix: 
+    - name: motor_id
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    - name: lane
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    - name: item_index
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    - name: operate_at
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    - name: turn_result
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    sendURL: https://191209-my-gentingvm.unicom-interactive-digital.com/public/api/
+    sendAPI: 
+    serverResponsesArray: []
+    hasMultipleLocalDB: 0
+    keyDownloadAPI: download-used-redeem-code-list
+    keyFileName: VendingMachineOperateRecordDatabaseModel Online
+    serverEmailFilePath: 
+  db_connection_string: 
+  numberToPopulate: 10
+  TestIndex: 0
+  selectCustomCondition: is_sync = 'no'
+  hasSync: 0
+  emptyHandler: {fileID: 0}
+  internetErrorHandler: {fileID: 0}
+  errorHandler: {fileID: 0}
+  blockDataHandler: {fileID: 0}
+  successBar: {fileID: 0}
+  failBar: {fileID: 0}
+  entityId: 0
+  serverEmailList: []
+  isFetchingData: 0
+  OnSyncStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSyncEnd:
+    m_PersistentCalls:
+      m_Calls: []

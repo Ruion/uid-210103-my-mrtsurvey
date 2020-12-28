@@ -1,0 +1,60 @@
+{
+  "fileName": "playerscoredata",
+  "folderPath": "C:\\UID-APP\\APPS\\191204-MY-Genting",
+  "dbName": "playerscoredata",
+  "tableName": "playerscoredata",
+  "columns": [
+    {
+      "name": "id",
+      "attribute": "INTEGER PRIMARY KEY",
+      "sync": false,
+      "dummyPrefix": "id"
+    },
+    {
+      "name": "email",
+      "attribute": "TEXT",
+      "sync": true,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "game_result",
+      "attribute": "TEXT",
+      "sync": true,
+      "dummyPrefix": "lose"
+    },
+    {
+      "name": "game_score",
+      "attribute": "TEXT",
+      "sync": true,
+      "dummyPrefix": "0"
+    },
+    {
+      "name": "source_identifier_code",
+      "attribute": "TEXT",
+      "sync": true,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "online_status",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": "new"
+    }
+  ],
+  "sendURL": "http://in-house-game-01-dashboard.uid-staging.com/public/api/",
+  "sendAPI": "submit-score-data",
+  "serverResponsesArray": [
+    {
+      "resultResponse": "Success",
+      "resultResponseMessage": "sync success"
+    },
+    {
+      "resultResponse": "Fail",
+      "resultResponseMessage": "sync fail"
+    }
+  ],
+  "hasMultipleLocalDB": false,
+  "keyDownloadURL": "",
+  "keyFileName": "",
+  "serverEmailFilePath": ""
+}

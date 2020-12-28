@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7497790228101721993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7497790228101722039}
+  - component: {fileID: 7497790228101721992}
+  - component: {fileID: 7497790228101722038}
+  m_Layer: 0
+  m_Name: PlayerDataDatabaseModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7497790228101722039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7497790228101721993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7497790228101721992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7497790228101721993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db476e859c69a7d448df1b2a28465c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: db_connection
+      Entry: 7
+      Data: 0|Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sqlitedb_connection
+      Entry: 7
+      Data: 1|Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite
+    - Name: 
+      Entry: 8
+      Data: 
+  dbSettings:
+    fileName: PlayerDataDatabaseModel
+    folderPath: C:\UID-APP\191209-MY-GentingVM
+    dbName: PlayerDataDatabaseModel
+    tableName: PlayerDataDatabaseModel
+    columns:
+    - name: id
+      attribute: INTEGER PRIMARY KEY
+      sync: 0
+      dummyPrefix: 
+    - name: name
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: ash
+    - name: email
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: a@gmail.com
+    - name: contact
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 01432323
+    - name: age
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: dob
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: gender
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: source_identifier_code
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: FH8D89C77
+    - name: created_at
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: '2019-11-18 11:00:'
+    - name: is_sync
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: new
+    sendURL: http://191209-my-gentingvm.uid-testing.space/public/api/
+    sendAPI: submit-player-data
+    serverResponsesArray:
+    - resultResponse: Success
+      resultResponseMessage: sync success
+    - resultResponse: Fail
+      resultResponseMessage: sync fail
+    hasMultipleLocalDB: 0
+    keyDownloadAPI: 
+    keyFileName: PlayerDataDatabaseModel Online
+    serverEmailFilePath: 
+  db_connection_string: URI = file:C:/UID_Projects/demogames/demogames/Assets/StreamingAssets/player.sql
+  numberToPopulate: 5
+  TestIndex: 16
+  selectCustomCondition: is_sync = 'no' OR is_sync = 'fail' ORDER BY is_sync DESC
+    LIMIT 50
+  hasSync: 0
+  emptyHandler: {fileID: 0}
+  internetErrorHandler: {fileID: 0}
+  errorHandler: {fileID: 0}
+  blockDataHandler: {fileID: 0}
+  successBar: {fileID: 0}
+  failBar: {fileID: 0}
+  entityId: 0
+  serverEmailList: []
+  isFetchingData: 0
+  OnSyncStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSyncEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &7497790228101722038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7497790228101721993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571c04249d3eb754096dafc97ee440fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsOEnable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7497790228101721992}
+        m_MethodName: Sync
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

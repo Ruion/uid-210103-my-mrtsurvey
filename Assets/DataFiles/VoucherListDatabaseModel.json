@@ -1,0 +1,39 @@
+{
+  "fileName": "VoucherListDatabaseModel",
+  "folderPath": "C:\\UID-APP\\191209-MY-GentingVM",
+  "dbName": "VoucherListDatabaseModel",
+  "tableName": "VoucherListDatabaseModel",
+  "columns": [
+    {
+      "name": "id",
+      "attribute": "INTEGER PRIMARY KEY",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "voucher_code",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "voucher_type",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "voucher_tier",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    }
+  ],
+  "sendURL": "http://191204-my-genting.uid-testing.space/public/api/",
+  "sendAPI": "",
+  "serverResponsesArray": [],
+  "hasMultipleLocalDB": false,
+  "keyDownloadAPI": "download-used-redeem-code-list",
+  "keyFileName": "VoucherListDatabaseModel Online",
+  "serverEmailFilePath": ""
+}

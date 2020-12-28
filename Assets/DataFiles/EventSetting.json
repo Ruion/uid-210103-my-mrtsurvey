@@ -1,0 +1,19 @@
+{
+  "dataSettings": {
+    "fileName": "app",
+    "extension": "eventsetting",
+    "fileFullName": "app.eventsetting",
+    "fullFilePath": "C:\\UID-APP\\GLOBAL\\app.eventsetting",
+    "folderPath": "C:\\UID-APP\\GLOBAL"
+  },
+  "sourceidentifierURL": "",
+  "isVerify": true,
+  "eventCode": {
+    "event_code": "191209-MY-GentingVM",
+    "location": "Genting",
+    "code": "GVM1",
+    "description": "GVM1"
+  },
+  "selectedSourceIdentifier": "",
+  "mickey": ""
+}

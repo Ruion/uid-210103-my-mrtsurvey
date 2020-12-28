@@ -1,0 +1,39 @@
+{
+  "fileName": "VoucherCodeDatabaseModel",
+  "folderPath": "C:\\UID-APP\\191207-MY-C&K",
+  "dbName": "VoucherCodeDatabaseModel",
+  "tableName": "VoucherCodeDatabaseModel",
+  "columns": [
+    {
+      "name": "id",
+      "attribute": "INTEGER PRIMARY KEY",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "voucher_type",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "redeem_code",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "voucher_status",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    }
+  ],
+  "sendURL": null,
+  "sendAPI": null,
+  "serverResponsesArray": null,
+  "hasMultipleLocalDB": false,
+  "keyDownloadAPI": null,
+  "keyFileName": "VoucherCodeDatabaseModel Online",
+  "serverEmailFilePath": null
+}

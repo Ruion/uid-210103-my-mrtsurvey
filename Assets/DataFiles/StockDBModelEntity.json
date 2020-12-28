@@ -1,0 +1,51 @@
+{
+  "fileName": "StockDBModelEntity",
+  "folderPath": "C:\\UID-APP\\191209-MY-GentingVM",
+  "dbName": "StockDBModelEntity",
+  "tableName": "StockDBModelEntity",
+  "columns": [
+    {
+      "name": "id",
+      "attribute": "INTERGER PRIMARY KEY",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "name",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": "Motor"
+    },
+    {
+      "name": "quantity",
+      "attribute": "INTEGER",
+      "sync": false,
+      "dummyPrefix": "1"
+    },
+    {
+      "name": "lane",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "is_disabled",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": "true"
+    },
+    {
+      "name": "item_limit",
+      "attribute": "INTEGER",
+      "sync": false,
+      "dummyPrefix": ""
+    }
+  ],
+  "sendURL": "http://191204-my-genting.uid-testing.space/public/api/",
+  "sendAPI": "",
+  "serverResponsesArray": [],
+  "hasMultipleLocalDB": false,
+  "keyDownloadAPI": "download-used-redeem-code-list",
+  "keyFileName": "StockDBModelEntity Online",
+  "serverEmailFilePath": ""
+}

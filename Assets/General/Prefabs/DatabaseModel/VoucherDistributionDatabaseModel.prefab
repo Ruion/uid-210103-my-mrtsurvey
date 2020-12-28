@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3723183745067904047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3723183745067904045}
+  - component: {fileID: 3723183745067904044}
+  m_Layer: 0
+  m_Name: VoucherDistributionDatabaseModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3723183745067904045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723183745067904047}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3723183745067904044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723183745067904047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db476e859c69a7d448df1b2a28465c47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: db_connection
+      Entry: 7
+      Data: 0|Mono.Data.Sqlite.SqliteConnection, Mono.Data.Sqlite
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: sqlitedb_connection
+      Entry: 6
+      Data: 
+  dbSettings:
+    fileName: VoucherDistributionDatabaseModel
+    folderPath: C:\UID-APP\191209-MY-GentingVM
+    dbName: VoucherDistributionDatabaseModel
+    tableName: VoucherDistributionDatabaseModel
+    columns:
+    - name: id
+      attribute: INTEGER PRIMARY KEY
+      sync: 0
+      dummyPrefix: id
+    - name: email
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: voucher_code
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: redeem_code
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: is_sync
+      attribute: TEXT
+      sync: 0
+      dummyPrefix: 
+    - name: created_at
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    sendURL: https://191209-my-gentingvm.unicom-interactive-digital.com/public/api/
+    sendAPI: submit-voucher-data
+    serverResponsesArray:
+    - resultResponse: Success
+      resultResponseMessage: sync success
+    - resultResponse: Fail
+      resultResponseMessage: sync fail
+    hasMultipleLocalDB: 0
+    keyDownloadAPI: download-used-redeem-code-list
+    keyFileName: VoucherDistributionDatabaseModel Online
+    serverEmailFilePath: 
+  db_connection_string: URI = file:C:\UID-APP\191204-MY-Genting\Databases\VoucherDistributionDatabaseModel.sqlite
+  numberToPopulate: 5
+  TestIndex: 13
+  selectCustomCondition: is_sync = 'no'
+  hasSync: 0
+  emptyHandler: {fileID: 0}
+  internetErrorHandler: {fileID: 0}
+  errorHandler: {fileID: 0}
+  blockDataHandler: {fileID: 0}
+  successBar: {fileID: 0}
+  failBar: {fileID: 0}
+  entityId: 5
+  serverEmailList: []
+  isFetchingData: 0
+  OnSyncStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSyncEnd:
+    m_PersistentCalls:
+      m_Calls: []

@@ -1,0 +1,45 @@
+{
+  "fileName": "VoucherDatabaseModel",
+  "folderPath": "C:\\UID-APP\\191209-MY-GentingVM",
+  "dbName": "VoucherDatabaseModel",
+  "tableName": "VoucherDatabaseModel",
+  "columns": [
+    {
+      "name": "id",
+      "attribute": "INTEGER PRIMARY KEY",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "voucher_code",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "quantity",
+      "attribute": "INTEGER",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "daily_quantity",
+      "attribute": "INTEGER",
+      "sync": false,
+      "dummyPrefix": ""
+    },
+    {
+      "name": "created_at",
+      "attribute": "TEXT",
+      "sync": false,
+      "dummyPrefix": ""
+    }
+  ],
+  "sendURL": "http://191204-my-genting.uid-testing.space/public/api/",
+  "sendAPI": "",
+  "serverResponsesArray": [],
+  "hasMultipleLocalDB": false,
+  "keyDownloadAPI": null,
+  "keyFileName": "VoucherDatabaseModel Online",
+  "serverEmailFilePath": ""
+}
