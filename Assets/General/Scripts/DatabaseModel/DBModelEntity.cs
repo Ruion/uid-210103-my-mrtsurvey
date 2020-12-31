@@ -26,11 +26,22 @@ public class DBModelEntity : DBModelMaster
     public bool preventDuplicateSave = true;
 
     public NetworkDatabaseModel networkDB;
+    public bool isSyncEnable = true;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         Saved = false;
+    }
+
+    public void EnableSync()
+    {
+        isSyncEnable = true;
+    }
+
+    public void DisableSync()
+    {
+        isSyncEnable = false;
     }
 
     /// <summary>
@@ -86,6 +97,8 @@ public class DBModelEntity : DBModelMaster
     /// </summary>
     public override void Sync()
     {
+        if (!isSyncEnable) return;
+
         base.Sync();
         StartCoroutine(SyncToServer());
     }
