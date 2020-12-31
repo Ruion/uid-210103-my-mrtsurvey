@@ -3,13 +3,12 @@ using System;
 
 public class KeyboardScript : MonoBehaviour
 {
-
     public AudioSource clickSound;
-    int selectionStartPost;
-    int selectionEndPost;
-    int selectionAmount;
+    private int selectionStartPost;
+    private int selectionEndPost;
+    private int selectionAmount;
 
-    public Transform destinationPos_{ get{return destinationPos;} set{ destinationPos = value; Reposition();}}
+    public Transform destinationPos_ { get { return destinationPos; } set { destinationPos = value; Reposition(); } }
     private Transform destinationPos;
 
     private void OnEnable()
@@ -43,18 +42,16 @@ public class KeyboardScript : MonoBehaviour
         {
             int out_;
             if (!int.TryParse(alphabet, out out_)) canType = false;
-
         }
 
         if (canType)
         {
-         //   inputFieldTMPro.text += alphabet; // SAFE
-            
-            
+            //   inputFieldTMPro.text += alphabet; // SAFE
+
             if (!SelectionFocus())
             {
-               inputFieldTMPro.text = inputFieldTMPro.text.Insert(inputFieldTMPro.stringPosition, alphabet);
-               inputFieldTMPro.stringPosition += alphabet.Length;
+                inputFieldTMPro.text = inputFieldTMPro.text.Insert(inputFieldTMPro.stringPosition, alphabet);
+                inputFieldTMPro.stringPosition += alphabet.Length;
             }
             else
             {
@@ -62,7 +59,6 @@ public class KeyboardScript : MonoBehaviour
                 inputFieldTMPro.text = inputFieldTMPro.text.Insert(inputFieldTMPro.stringPosition, alphabet);
                 inputFieldTMPro.stringPosition += alphabet.Length;
             }
-            
         }
         inputFieldTMPro.Select();
     }
@@ -73,9 +69,8 @@ public class KeyboardScript : MonoBehaviour
 
         clickSound.Play();
 
-       //  if (inputFieldTMPro.text.Length>0) inputFieldTMPro.text= inputFieldTMPro.text.Remove(inputFieldTMPro.text.Length-1); // SAFE
+        //  if (inputFieldTMPro.text.Length>0) inputFieldTMPro.text= inputFieldTMPro.text.Remove(inputFieldTMPro.text.Length-1); // SAFE
 
-         
         int cutPos = inputFieldTMPro.stringPosition - 1;
 
         if (!SelectionFocus())
@@ -89,11 +84,9 @@ public class KeyboardScript : MonoBehaviour
         {
             RemoveSelectionTexts();
         }
-        
 
         inputFieldTMPro.Select();
         //  if (inputFieldTMPro.stringPosition <= 0) inputFieldTMPro.MoveTextEnd(false);
-
     }
 
     public void ShowSelectionDetails()
@@ -144,8 +137,8 @@ public class KeyboardScript : MonoBehaviour
         SetLayout.SetActive(true);
     }
 
-    private void Reposition(){
-        transform.position = destinationPos.position;
+    private void Reposition()
+    {
+        transform.position = new Vector3(0, destinationPos.position.y, destinationPos.position.z);
     }
-
 }

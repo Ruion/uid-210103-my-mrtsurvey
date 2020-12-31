@@ -20,8 +20,9 @@ using Newtonsoft.Json.Linq;
 public class EventSetting : SerializedMonoBehaviour
 {
     #region Fields & Action
+
     public EventSettings eventSettings;
-    
+
     public GameObject internetConnectionHandler;
     public GameObject errorHandler;
     public TextMeshProUGUI sourceIdentifierDescription;
@@ -36,31 +37,34 @@ public class EventSetting : SerializedMonoBehaviour
 
     private EventCode[] options;
 
-    public JSONSetter jsonSetter {get { return FindObjectOfType<JSONSetter>();} }
+    public JSONSetter jsonSetter { get { return FindObjectOfType<JSONSetter>(); } }
 
-    #endregion
+    #endregion Fields & Action
 
-    void OnEnable(){
+    private void OnEnable()
+    {
         internetConnectionHandler.SetActive(false);
         errorHandler.SetActive(false);
         LoadSettings();
 
         FetchServerOptions();
-//        if(eventSettings.isVerify) eventSettings = (EventSettings)Data.LoadData(eventSettings.dataSettings.fullFilePath);
+        //        if(eventSettings.isVerify) eventSettings = (EventSettings)Data.LoadData(eventSettings.dataSettings.fullFilePath);
     }
 
-    void RefreshSetting()
+    private void RefreshSetting()
     {
         sourceIdentifierDescription.text = eventSettings.eventCode.description;
         sourceIdentifierCode.text = eventSettings.eventCode.code;
     }
 
-#region SaveLoad
+    #region SaveLoad
+
     [Button(ButtonSizes.Medium)]
-    private void SaveSettings(){
-       // eventSettings.dataSettings.fileFullName = eventSettings.dataSettings.fileName + "." + eventSettings.dataSettings.extension;
-      //  eventSettings.dataSettings.fullFilePath = eventSettings.dataSettings.folderPath + "\\" + eventSettings.dataSettings.fileFullName;
-       // Data.SaveData(eventSettings, eventSettings.dataSettings.fullFilePath);
+    private void SaveSettings()
+    {
+        // eventSettings.dataSettings.fileFullName = eventSettings.dataSettings.fileName + "." + eventSettings.dataSettings.extension;
+        //  eventSettings.dataSettings.fullFilePath = eventSettings.dataSettings.folderPath + "\\" + eventSettings.dataSettings.fileFullName;
+        // Data.SaveData(eventSettings, eventSettings.dataSettings.fullFilePath);
 
         // JSONSetter jsonSetter = FindObjectOfType<JSONSetter>();
         JSONExtension.SaveObject(jsonSetter.savePath + "\\EventSetting", eventSettings);
@@ -69,17 +73,20 @@ public class EventSetting : SerializedMonoBehaviour
     }
 
     [Button(ButtonSizes.Medium)]
-    private void LoadSettings(){
-       // eventSettings = (EventSettings)Data.LoadData(eventSettings.dataSettings.fullFilePath);
-       // JSONSetter jsonSetter = FindObjectOfType<JSONSetter>();
-       eventSettings = JsonConvert.DeserializeObject<EventSettings>(File.ReadAllText(jsonSetter.savePath + "\\EventSetting.json"));
+    private void LoadSettings()
+    {
+        // eventSettings = (EventSettings)Data.LoadData(eventSettings.dataSettings.fullFilePath);
+        // JSONSetter jsonSetter = FindObjectOfType<JSONSetter>();
+        eventSettings = JsonConvert.DeserializeObject<EventSettings>(File.ReadAllText(jsonSetter.savePath + "\\EventSetting.json"));
         RefreshSetting();
     }
-#endregion
+
+    #endregion SaveLoad
 
     // verify from server
     [Button(ButtonSizes.Small)]
-    public void FetchServerOptions(){
+    public void FetchServerOptions()
+    {
         string HtmlText = GetHtmlFromUri();
         if (HtmlText == "")
         {
@@ -91,14 +98,16 @@ public class EventSetting : SerializedMonoBehaviour
         StartCoroutine(FetchServerOptionsRoutine());
     }
 
-    private IEnumerator FetchServerOptionsRoutine(){
-
-        string serverDomainURL = jsonSetter.LoadSetting()["serverDomainURL"].ToString();
-        var substrings = new[] {"api"};
-        if(!serverDomainURL.ContainsAny(substrings, StringComparison.CurrentCultureIgnoreCase))
-            serverDomainURL += "/public/api/";
-      //  using (UnityWebRequest www = UnityWebRequest.Get(serverField.text.Trim().Replace(" ", string.Empty))){
-        using (UnityWebRequest www = UnityWebRequest.Get(serverDomainURL.Trim().Replace(" ", String.Empty) + "get-source-identifier-list")){
+    private IEnumerator FetchServerOptionsRoutine()
+    {
+        //string serverDomainURL = jsonSetter.LoadSetting()["serverDomainURL"].ToString();
+        string serverDomainURL = JSONExtension.LoadEnv("Server_URL");
+        var substrings = new[] { "api" };
+        if (!serverDomainURL.ContainsAny(substrings, StringComparison.CurrentCultureIgnoreCase))
+            serverDomainURL += "public/api/";
+        //  using (UnityWebRequest www = UnityWebRequest.Get(serverField.text.Trim().Replace(" ", string.Empty))){
+        using (UnityWebRequest www = UnityWebRequest.Get(serverDomainURL.Trim().Replace(" ", String.Empty) + "get-source-identifier-list"))
+        {
             yield return www.SendWebRequest();
 
             if (www.isNetworkError || www.isHttpError)
@@ -110,19 +119,18 @@ public class EventSetting : SerializedMonoBehaviour
             }
             else
             {
-                while(!www.downloadHandler.isDone) yield return null;
+                while (!www.downloadHandler.isDone) yield return null;
                 Debug.Log(www.downloadHandler.text);
                 buttons["saveoptions"].gameObject.SetActive(true);
                 sourceIdentifierDropdown.interactable = true;
                 options = JsonHelper.getJsonArray<EventCode>(www.downloadHandler.text);
-                
+
                 string[] source_identifiers = new string[options.Length];
                 for (int e = 0; e < options.Length; e++)
                 {
                     source_identifiers[e] = options[e].description;
                 }
-                AddOptionToDropdown(source_identifiers, sourceIdentifierDropdown, "Source Identifier"); 
-                
+                AddOptionToDropdown(source_identifiers, sourceIdentifierDropdown, "Source Identifier");
             }
         }
     }
@@ -131,19 +139,18 @@ public class EventSetting : SerializedMonoBehaviour
     {
         foreach (EventFields f in eventFields)
         {
-            if(f.field != null) f.field.text = "";
-            if(f.dropdownfield != null) f.dropdownfield.ClearOptions();
+            if (f.field != null) f.field.text = "";
+            if (f.dropdownfield != null) f.dropdownfield.ClearOptions();
         }
-      //  buttons["url"].interactable = false;
-      //  buttons["url"].gameObject.SetActive(true);
+        //  buttons["url"].interactable = false;
+        //  buttons["url"].gameObject.SetActive(true);
 
         buttons["saveoptions"].gameObject.SetActive(false);
         buttons["saveoptions"].interactable = false;
-        
-     //   buttons["done"].interactable = false;
-     //   buttons["done"].gameObject.SetActive(false);
-    }
 
+        //   buttons["done"].interactable = false;
+        //   buttons["done"].gameObject.SetActive(false);
+    }
 
     public void SaveSourceIdentifier()
     {
@@ -151,7 +158,7 @@ public class EventSetting : SerializedMonoBehaviour
                 .FirstOrDefault(o => o.description == sourceIdentifierDropdown.options[sourceIdentifierDropdown.value].text);
 
         eventSettings.isVerify = true;
-        // save the selected 
+        // save the selected
         SaveSettings();
         PlayerPrefs.SetString("source_identifier_code", eventSettings.eventCode.code);
         // submitted selected code to server
@@ -159,7 +166,9 @@ public class EventSetting : SerializedMonoBehaviour
     }
 
     ///////////// AFTER License Key Verify /////////////
+
     #region Private Method
+
     private void AddOptionToDropdown(string[] options, TMP_Dropdown dropdown, string firstOption = "Select")
     {
         dropdown.options.Clear();
@@ -181,7 +190,7 @@ public class EventSetting : SerializedMonoBehaviour
                     using (StreamReader reader = new StreamReader(resp.GetResponseStream()))
                     {
                         //We are limiting the array to 80 so we don't have
-                        //to parse the entire html document feel free to 
+                        //to parse the entire html document feel free to
                         //adjust (probably stay under 300)
                         char[] cs = new char[80];
                         reader.Read(cs, 0, cs.Length);
@@ -199,43 +208,48 @@ public class EventSetting : SerializedMonoBehaviour
         }
         return html;
     }
-    #endregion
+
+    #endregion Private Method
 
     #region Field validation
-        public void ValidateInputField(int fieldIndex)
-        {
-            bool isCorrect = true;
-            if(eventFields[fieldIndex].isText)
-            {
-                if(!string.IsNullOrEmpty(eventFields[fieldIndex].field.text))
-                {
-                    isCorrect = Regex.IsMatch(eventFields[fieldIndex].field.text, eventFields[fieldIndex].regexPattern);
-                }
-                else isCorrect = false;
-            }
-            else
-            {
-                if(eventFields[fieldIndex].dropdownfield.value < 1) isCorrect = false;
-            }
-            
-            if(isCorrect && eventFields[fieldIndex].successAction.GetPersistentEventCount() > 0 ) eventFields[fieldIndex].successAction.Invoke();
 
-            if(!isCorrect && eventFields[fieldIndex].failAction.GetPersistentEventCount() > 0 ) eventFields[fieldIndex].failAction.Invoke();
+    public void ValidateInputField(int fieldIndex)
+    {
+        bool isCorrect = true;
+        if (eventFields[fieldIndex].isText)
+        {
+            if (!string.IsNullOrEmpty(eventFields[fieldIndex].field.text))
+            {
+                isCorrect = Regex.IsMatch(eventFields[fieldIndex].field.text, eventFields[fieldIndex].regexPattern);
+            }
+            else isCorrect = false;
         }
-    #endregion
+        else
+        {
+            if (eventFields[fieldIndex].dropdownfield.value < 1) isCorrect = false;
+        }
+
+        if (isCorrect && eventFields[fieldIndex].successAction.GetPersistentEventCount() > 0) eventFields[fieldIndex].successAction.Invoke();
+
+        if (!isCorrect && eventFields[fieldIndex].failAction.GetPersistentEventCount() > 0) eventFields[fieldIndex].failAction.Invoke();
+    }
+
+    #endregion Field validation
 }
 
 #region Objects
+
 [Serializable]
 public struct EventSettings
 {
     [HideInPlayMode]
     public DataSettings dataSettings;
+
     public string sourceidentifierURL;
     public bool isVerify;
 
     public EventCode eventCode;
-    
+
     public string selectedSourceIdentifier;
     public string mickey;
 }
@@ -244,11 +258,11 @@ public struct EventSettings
 public class EventFields
 {
     public bool isText;
-[ShowIf("isText", true)]  public TMP_InputField field;
-[ShowIf("isText", true)]  public string regexPattern;
-[HideIf("isText", true)]  public TMP_Dropdown dropdownfield;
-[HorizontalGroup] public UnityEvent successAction;
-[HorizontalGroup] public UnityEvent failAction;
+    [ShowIf("isText", true)] public TMP_InputField field;
+    [ShowIf("isText", true)] public string regexPattern;
+    [HideIf("isText", true)] public TMP_Dropdown dropdownfield;
+    [HorizontalGroup] public UnityEvent successAction;
+    [HorizontalGroup] public UnityEvent failAction;
 }
 
 [Serializable]
@@ -260,4 +274,4 @@ public class EventCode
     public string description;
 }
 
-#endregion
+#endregion Objects

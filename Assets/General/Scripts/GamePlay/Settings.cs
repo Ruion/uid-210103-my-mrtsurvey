@@ -13,15 +13,7 @@ public class Settings
 
     public bool debugMode = false;
 
-    public string serverDomainURL;
-    public string voucherCodeDownloadAPI;
-    public string userPrimaryKeyName = "userPrimaryKey";
-    public bool realTimeOnlineValidate = true;
-    public int checkInternetTimeOut = 5000;
-    public int downloadCodeAPITimeOut = 10;
-    public int tier1Score = 1;
-    public int tier2Score = 2;
-    public int tier3Score = 7;
+    public string source_identifier_code = "GVM1";
 
     public Settings(Settings setting)
     {

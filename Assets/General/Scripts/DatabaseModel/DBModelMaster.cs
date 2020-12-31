@@ -10,7 +10,8 @@ using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine.Networking;
 using System.Collections;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 /// <summary>
 /// Sqlite database master class that hold database settings, methods for manipulating user data \n
@@ -20,13 +21,13 @@ using System.Threading.Tasks;
 /// Public : Execute custom query on this database with ExecuteCustomNonQuery() and ExecuteCustomQuery() \n
 /// Notes: see usage in DBModelEntity which inherit and extend this class
 /// </summary>
-public class DBModelMaster : DBSettingEntity
+public class DBModelMaster : SerializedMonoBehaviour
 {
     #region fields
 
-    private const string CodistanTag = "Codistan: SqliteHelper:\t";
+    public DBEntitySetting dbSettings;
 
-    [HideInInspector] public string db_connection_string;
+    [HideInInspector] public string db_connection_string { get { return "Data Source=" + dbSettings.folderPath + "\\Databases\\" + dbSettings.dbName + ".sqlite;PRAGMA journal_mode=WAL;"; } }
     [HideInInspector] public IDbConnection db_connection;
     [HideInInspector] public SqliteConnection sqlitedb_connection;
 
@@ -52,8 +53,86 @@ public class DBModelMaster : DBSettingEntity
 
     #endregion fields
 
+    #region Basics
+
+    public virtual void Awake()
+    {
+        LoadSetting();
+    }
+
+    [Button(ButtonSizes.Large), GUIColor(.3f, .78f, .78f)]
+    [ButtonGroup("Setting")]
+    public virtual void SaveSetting()
+    {
+        dbSettings.fileName = name;
+        dbSettings.tableName = name;
+        dbSettings.dbName = name;
+        dbSettings.keyFileName = name + " Online";
+
+        GameSettingEntity gse = FindObjectOfType<GameSettingEntity>().GetComponent<GameSettingEntity>();
+
+        dbSettings.sendURL = JSONExtension.LoadEnv("SERVER_URL");
+
+        // fetch & Update setting from Setting.json
+
+        dbSettings.folderPath = @"C:\UID-APP\" + JSONExtension.LoadEnv("PROJECT_CODE");
+
+        Directory.CreateDirectory(Path.GetDirectoryName(dbSettings.folderPath + "\\Databases\\"));
+
+        // add api to Setting.json - playerdata_sendAPI : submit-player-data
+        DBSettingEntity[] dBSettingEntities = FindObjectsOfType<DBSettingEntity>();
+
+        //JSONSetter jsonSetter = gse.jsonSetter;
+        foreach (DBSettingEntity e in dBSettingEntities)
+        {
+            if (string.IsNullOrEmpty(e.dbSettings.sendAPI)) continue;
+
+            // save to Settings.json
+            JSONExtension.SaveSetting(gse.SettingFilePath, e.dbSettings.fileName + "-API", e.dbSettings.sendAPI);
+        }
+
+        // save to json file
+        JSONExtension.SaveObject(dbSettings.folderPath + "\\Settings\\" + name, dbSettings);
+    }
+
+    [Button(ButtonSizes.Large), GUIColor(.3f, .78f, .78f)]
+    [ButtonGroup("Setting")]
+    public virtual void LoadSetting()
+    {
+        GameSettingEntity gse = FindObjectOfType<GameSettingEntity>().GetComponent<GameSettingEntity>();
+
+        // fetch & Update setting from global JSONSetter
+
+        dbSettings.folderPath = gse.Project_Folder;
+
+        string filePath = dbSettings.folderPath + "\\Settings\\" + name;
+
+        // Load from json file
+        dbSettings = JsonConvert.DeserializeObject<DBEntitySetting>(File.ReadAllText(filePath + ".json"));
+
+        // fetch & Update setting from global JSONSetter
+        //JSONSetter jsonSetter = gse.jsonSetter;
+
+        //JObject jObject = jsonSetter.LoadSetting();
+        JObject jObject = JSONExtension.LoadJson(gse.SettingFilePath);
+        dbSettings.sendURL = gse.Server_URL;
+
+        dbSettings.folderPath = gse.Project_Folder;
+
+        var substrings = new[] { "api" };
+        if (!dbSettings.sendURL.ContainsAny(substrings, StringComparison.CurrentCultureIgnoreCase))
+            //dbSettings.sendURL += "public/api/";
+            dbSettings.sendURL += JSONExtension.LoadEnvBool("DEBUG_MODE") ? JSONExtension.LoadEnv("API_ROUTE_DEBUG") : JSONExtension.LoadEnv("API_ROUTE");
+
+        // load sendAPI from global setting file
+        if (jObject.ContainsKey(dbSettings.fileName + "-API")) dbSettings.sendAPI = jObject[dbSettings.fileName + "-API"].ToString();
+    }
+
+    #endregion Basics
+
     protected virtual void OnEnable()
     {
+        LoadSetting();
         CreateTable();
     }
 
@@ -62,8 +141,6 @@ public class DBModelMaster : DBSettingEntity
     [ContextMenu("CreateTable")]
     public virtual void CreateTable()
     {
-        LoadSetting();
-
         ConnectDb();
 
         IDbCommand dbcmd = GetDbCommand();
@@ -84,16 +161,13 @@ public class DBModelMaster : DBSettingEntity
             dbcmd.ExecuteNonQuery(); Close();
         }
         catch (Exception ex) { Close(); Debug.LogError(ex.Message + "\n" + dbcmd.CommandText); return; }
-
         Close();
     }
 
     public virtual void ConnectDb()
     {
-        /// we use StreamingAssets folder in pass, but now use C:\UID-APP\APPS folder now
-       // db_connection_string = "URI = file:" + Application.streamingAssetsPath + "/" + dbSettings.dbName + ".sqlite";
         //db_connection_string = "URI = file:" + dbSettings.folderPath + "\\Databases\\" + dbSettings.dbName + ".sqlite;PRAGMA journal_mode=WAL;";
-        db_connection_string = "Data Source=" + dbSettings.folderPath + "\\Databases\\" + dbSettings.dbName + ".sqlite;PRAGMA journal_mode=WAL;";
+        //db_connection_string = "Data Source=" + dbSettings.folderPath + "\\Databases\\" + dbSettings.dbName + ".sqlite;PRAGMA journal_mode=WAL;";
         //Debug.Log(db_connection_string, gameObject);
         db_connection = new SqliteConnection(db_connection_string);
         db_connection.Open();
@@ -190,7 +264,7 @@ public class DBModelMaster : DBSettingEntity
             try
             {
                 dbcmd2.ExecuteNonQuery(); Close();
-                Debug.Log(name + " : Inserted new record \n" + dbcmd2.CommandText);
+                //Debug.Log(name + " : Inserted new record \n" + dbcmd2.CommandText);
                 return "true";
             }
             catch (DbException ex)
@@ -271,24 +345,24 @@ public class DBModelMaster : DBSettingEntity
 
             //            Debug.Log("Columns : " + dt.Columns.Count + "| Rows : " + dt.Rows.Count);
 
-            foreach (DataRow r in dt.Rows)
-            {
-                string record = "";
+            //foreach (DataRow r in dt.Rows)
+            //{
+            //    string record = "";
 
-                foreach (TableColumn col in dbSettings.columns)
-                {
-                    record += r[col.name].ToString() + " | ";
-                }
-                //Debug.Log(record);
-            }
-            
+            //    foreach (TableColumn col in dbSettings.columns)
+            //    {
+            //        record += r[col.name].ToString() + " | ";
+            //    }
+            //      Debug.Log(record);
+            //}
+
             Close();
             //Debug.Log("Show Custom : Row count - " + dt.Rows.Count, gameObject);
             return dt.Rows;
         }
         catch (DbException ex)
         {
-            //Debug.LogError("Error : " + ex.Message + "\n" + dbSettings.folderPath);
+            Debug.LogError("Error : " + ex.Message + "\n" + dbSettings.folderPath);
             Close();
             return null;
         }
@@ -297,7 +371,7 @@ public class DBModelMaster : DBSettingEntity
     [Button("Show AllUnSync", ButtonSizes.Medium)]
     public void GetAllUnSync()
     {
-         ConnectDb();
+        ConnectDb();
         try
         {
             //Debug.Log(dbSettings.tableName, gameObject);
@@ -339,7 +413,7 @@ public class DBModelMaster : DBSettingEntity
 
         try
         {
-            ConnectDb();
+            //ConnectDb();
             DataRowCollection drc = ExecuteCustomSelectQuery("SELECT " + item + " FROM " + dbSettings.tableName);
 
             for (int d = 0; d < drc.Count; d++)
@@ -443,18 +517,17 @@ public class DBModelMaster : DBSettingEntity
 
     #region Custom Query
 
+    /// <summary>
+    /// Run non select query like UPDATE. Ex : dbmodel.ExecuteCustomNonQuery($"UPDATE {TABLE} SET {COLUMN1} = '{VALUE}' WHERE {COLUMN2} = '{VALUE2}'");
+    /// </summary>
+    /// <param name="query"></param>
     public virtual void ExecuteCustomNonQuery(string query)
     {
         #region Usage
 
-        // Usage
         // ExecuteCustomNonQuery("UPDATE " + dbSettings.tableName + " SET quantity = " + voucher_quantity + " WHERE name = '" + voucher_name + "'");
 
         #endregion Usage
-
-        ConnectDb();
-        Close();
-        // db_connection_string = "URI = file:" + dbSettings.folderPath + "\\Databases\\"+ dbSettings.dbName + ".sqlite";
 
         sqlitedb_connection = new SqliteConnection(db_connection_string);
         sqlitedb_connection.Open();
@@ -465,7 +538,7 @@ public class DBModelMaster : DBSettingEntity
         {
             cmd.ExecuteNonQuery();
 
-            Debug.Log(name + " - Custom Query success" + "\n" + cmd.CommandText);
+            //Debug.Log(name + " - Custom Query success" + "\n" + cmd.CommandText);
             sqlitedb_connection.Close();
         }
         catch (DbException ex)
@@ -475,6 +548,12 @@ public class DBModelMaster : DBSettingEntity
         }
     }
 
+    /// <summary>
+    /// Example: DataRowCollection drc = dbmodel.ExecuteCustomSelectQuery("SELECT " + item + " FROM " + dbSettings.tableName);
+    /// Click function for detail usage;
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
     public virtual DataRowCollection ExecuteCustomSelectQuery(string query)
     {
         #region Usage
@@ -483,15 +562,15 @@ public class DBModelMaster : DBSettingEntity
         // DataRowCollection drc = ExecuteCustomSelectQuery("SELECT " + item + " FROM " + dbSettings.tableName);
         //    for (int d = 0; d < drc.Count; d++)
         //    {
-        //        list.Add(drc[0][0].ToString()); drc[0][0] means drc[row0][column0]
+        //        list.Add(drc[0][0].ToString()); !! drc[0][0] means drc[row0][column0] !!
         //    }
 
         #endregion Usage
 
-        ConnectDb();
+        //ConnectDb();
 
         // add close
-        Close();
+        //Close();
         try
         {
             sqlitedb_connection = new SqliteConnection(db_connection_string);
@@ -516,23 +595,17 @@ public class DBModelMaster : DBSettingEntity
         }
     }
 
+    /// <summary>
+    /// Select data as single SqliteDataReader. Example: string same = dbmodel.ExecuteCustomSelectSingle($"SELECT col FROM table WHERE col = 'value'")[0].ToString();
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
     public virtual SqliteDataReader ExecuteCustomSelectSingle(string query)
     {
-        #region Usage
-
-        // Usage
-        // DataRowCollection drc = ExecuteCustomSelectQuery("SELECT " + item + " FROM " + dbSettings.tableName);
-        //    for (int d = 0; d < drc.Count; d++)
-        //    {
-        //        list.Add(drc[0][0].ToString()); drc[0][0] means drc[row0][column0]
-        //    }
-
-        #endregion Usage
-
-        ConnectDb();
+        //ConnectDb();
 
         // add close
-        Close();
+        //Close();
 
         sqlitedb_connection = new SqliteConnection(db_connection_string);
         sqlitedb_connection.Open();
@@ -544,10 +617,6 @@ public class DBModelMaster : DBSettingEntity
             SqliteDataReader reader = cmd.ExecuteReader();
             reader.Read();
 
-            //if(reader.Read())
-            // add close 3
-            //sqlitedb_connection.Close();
-
             return reader;
         }
         catch (DbException ex)
@@ -556,35 +625,28 @@ public class DBModelMaster : DBSettingEntity
             sqlitedb_connection.Close();
             return null;
         }
-
     }
 
+    /// <summary>
+    /// Select data and return as object, cast return object explicitly for own use.
+    /// Example : int redeemTime = System.Int32.Parse(vDb.ExecuteCustomSelectObject($"SELECT COUNT(email) FROM {vDB.dbSettings.tableName}").ToString());
+    /// </summary>
+    /// <param name="query">Query string to select object. Ex: </param>
     public virtual object ExecuteCustomSelectObject(string query)
     {
-        #region Usage
-
-        // Usage
-        // DataRowCollection drc = ExecuteCustomSelectQuery("SELECT " + item + " FROM " + dbSettings.tableName);
-        //    for (int d = 0; d < drc.Count; d++)
-        //    {
-        //        list.Add(drc[0][0].ToString()); drc[0][0] means drc[row0][column0]
-        //    }
-
-        #endregion Usage
-
-        ConnectDb();
-
-        sqlitedb_connection = new SqliteConnection(db_connection_string);
-        sqlitedb_connection.Open();
-
-        SqliteCommand cmd = new SqliteCommand(query, sqlitedb_connection);
+        //ConnectDb();
+        //Close();
 
         try
         {
-            object queryObject = cmd.ExecuteScalar();
-            // add close 4
-            sqlitedb_connection.Close();
+            object queryObject;
+            using (SqliteConnection newsqlitedb_connection = new SqliteConnection(db_connection_string))
+            {
+                newsqlitedb_connection.Open();
 
+                SqliteCommand cmd = new SqliteCommand(query, newsqlitedb_connection);
+                queryObject = cmd.ExecuteScalar();
+            }
             return queryObject;
         }
         catch (DbException ex)
@@ -599,7 +661,8 @@ public class DBModelMaster : DBSettingEntity
 
     public virtual void Close()
     {
-        db_connection.Close();
+        if (db_connection != null)
+            db_connection.Close();
     }
 
     [Button(ButtonSizes.Medium)]
@@ -739,7 +802,7 @@ public class DBModelMaster : DBSettingEntity
 
         serverEmailList = new List<string>();
 
-        NetworkExtension.timeOut = FindObjectOfType<GameSettingEntity>().gameSettings.checkInternetTimeOut;
+        NetworkExtension.timeOut = JSONExtension.LoadEnvInt("checkInternetTimeOut");
 
         Debug.Log(name + " GetDataFromServer() started");
 
@@ -765,7 +828,7 @@ public class DBModelMaster : DBSettingEntity
         using (UnityWebRequest www = UnityWebRequest.Get(dbSettings.sendURL + dbSettings.keyDownloadAPI))
         {
             //  ulong downloadBytesOrigin = new ulong();
-            www.timeout = FindObjectOfType<GameSettingEntity>().gameSettings.downloadCodeAPITimeOut;
+            www.timeout = JSONExtension.LoadEnvInt("downloadCodeAPITimeOut");
 
             var watchRequest = System.Diagnostics.Stopwatch.StartNew();
             watchRequest.Start();

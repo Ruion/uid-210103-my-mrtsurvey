@@ -5,7 +5,7 @@ using System.Net;
 using UnityEngine;
 using System;
 
-public class NetworkExtension 
+public class NetworkExtension
 {
     public static bool internet = false;
     public static int timeOut = 5000;
@@ -31,7 +31,7 @@ public class NetworkExtension
     {
         string html = string.Empty;
         HttpWebRequest req = (HttpWebRequest)WebRequest.Create(resource);
-       // req.ContentType = "text/xml";
+        // req.ContentType = "text/xml";
         try
         {
             using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
@@ -42,7 +42,7 @@ public class NetworkExtension
                     using (StreamReader reader = new StreamReader(resp.GetResponseStream()))
                     {
                         //We are limiting the array to 80 so we don't have
-                        //to parse the entire html document feel free to 
+                        //to parse the entire html document feel free to
                         //adjust (probably stay under 300)
                         char[] cs = new char[80];
                         reader.Read(cs, 0, cs.Length);
@@ -69,7 +69,6 @@ public class NetworkExtension
         {
             using (var client = new WebClient())
             {
-               
                 using (client.OpenRead("http://google.com/generate_204"))
                     return true;
             }
@@ -79,19 +78,25 @@ public class NetworkExtension
             return false;
         }
         */
-
-        HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create("http://www.bing.com");
-        myRequest.Timeout = timeOut;
-        HttpWebResponse response = (HttpWebResponse)myRequest.GetResponse();
-
-        if (response.StatusCode == HttpStatusCode.OK)
+        try
         {
-            response.Close();
-            return true;
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create("http://www.bing.com");
+            myRequest.Timeout = timeOut;
+            HttpWebResponse response = (HttpWebResponse)myRequest.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                response.Close();
+                return true;
+            }
+            else
+            {
+                response.Close();
+                return false;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            response.Close();
             return false;
         }
     }

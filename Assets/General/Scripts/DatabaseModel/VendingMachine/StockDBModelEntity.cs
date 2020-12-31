@@ -21,8 +21,11 @@ public class StockDBModelEntity : DBModelEntity
     [Header("Stock setting")]
     public VendingMachine vm;
 
-    private DataRowCollection rows;
+    public bool selectItemByVoucherCode = true;
+
+    //private DataRowCollection rows;
     public int item_id;
+
     public string item_name;
     public int item_quantity;
     public int item_limit;
@@ -72,22 +75,15 @@ public class StockDBModelEntity : DBModelEntity
         HideAllHandler();
         LoadSetting();
 
-        // select the tier
-
-        // string query = "SELECT * FROM " + dbSettings.tableName + " WHERE " + selectCustomCondition;
-        /*string query =
-        string.Format("SELECT * FROM {0} WHERE is_disabled = 'false' AND quantity > 0 AND tier = '{1}' LIMIT 1"
-        // string.Format("SELECT * FROM {0} WHERE is_disabled = 'false' ORDER BY RANDOM() LIMIT 1"
-                        , new System.Object[] { dbSettings.tableName, PlayerPrefs.GetString("tier") });*/
-        //AND voucher_code = 'TIER2'
         string query =
-        string.Format("SELECT * FROM {0} WHERE is_disabled = 'false' AND quantity > 0{1} LIMIT 1"
+        //string.Format("SELECT * FROM {0} WHERE is_disabled = 'false' AND quantity > 0{1} LIMIT 1"
         // string.Format("SELECT * FROM {0} WHERE is_disabled = 'false' ORDER BY RANDOM() LIMIT 1"
-                        , new System.Object[] { dbSettings.tableName, queryCondition });
+        //, new System.Object[] { dbSettings.tableName, queryCondition });
+        selectItemByVoucherCode ?
+        $"SELECT * FROM {dbSettings.tableName} WHERE is_disabled = 'false' AND quantity > 0 AND voucher_code = '{PlayerPrefs.GetString("voucher_code")}' LIMIT 1"
+        : $"SELECT * FROM { dbSettings.tableName} WHERE is_disabled = 'false' AND quantity > 0 LIMIT 1";
 
         DataRowCollection drc = ExecuteCustomSelectQuery(query);
-
-        PlayerPrefs.SetString("voucher_code", PlayerPrefs.GetString("tier"));
 
         if (drc.Count < 1)
         {
@@ -120,26 +116,56 @@ public class StockDBModelEntity : DBModelEntity
 
         item_quantity--;
 
-        List<string> col = new List<string>();
-        List<string> val = new List<string>();
+        //UpdateData(col, val, "id = " + item_id);
+        if (item_quantity > 0)
+            ExecuteCustomNonQuery($"UPDATE {dbSettings.tableName} SET quantity = '{item_quantity}' WHERE id = '{item_id}'");
+        else
+            ExecuteCustomNonQuery($"UPDATE {dbSettings.tableName} SET quantity = '{item_quantity}', is_disabled = 'true' WHERE id = '{item_id}'");
+        //  Debug.Log(item_id + " : " + item_name + " has " + item_quantity + " left | lane id : " + item_id + "| Lane : " + item_lane);
 
-        col.Add("quantity");
-        val.Add(item_quantity.ToString());
+        Close();
+    }
 
-        UpdateData(col, val, "id = " + item_id);
+    private void GiveRewardAutoTest()
+    {
+        LoadSetting();
 
-        if (item_quantity < 1)
+        string query =
+        string.Format("SELECT * FROM {0} WHERE is_disabled = 'false' AND quantity > 0"
+                        , new System.Object[] { dbSettings.tableName });
+        Debug.Log(name + " : " + query);
+        DataRowCollection drc = ExecuteCustomSelectQuery(query);
+
+        if (drc.Count < 1)
         {
-            col = new List<string>();
-            val = new List<string>();
-
-            col.Add("is_disabled");
-            val.Add("true");
-
-            UpdateData(col, val, "id = '" + item_id + "'");
-            // Debug.Log("switch lane on next drop");
+            // out of stock
+            Debug.LogError("out of stock");
+            if (OnOutOfStock.GetPersistentEventCount() > 0) { OnOutOfStock.Invoke(); }
+            return;
+        }
+        else
+        {
+            // random get lane
+            item_id = System.Int32.Parse(drc[0][0].ToString());
+            item_name = drc[0][1].ToString();
+            item_quantity = int.Parse(drc[0][2].ToString());
+            item_lane = drc[0][3].ToString();
+            item_limit = System.Int32.Parse(drc[0]["item_limit"].ToString());
         }
 
+        PlayerPrefs.SetString("created_at", System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+        if (item_quantity < 1) return;
+
+        StartCoroutine(DropRewardRoutine());
+
+        item_quantity--;
+
+        //UpdateData(col, val, "id = " + item_id);
+        if (item_quantity > 0)
+            ExecuteCustomNonQuery($"UPDATE {dbSettings.tableName} SET quantity = '{item_quantity}' WHERE id = '{item_id}'");
+        else
+            ExecuteCustomNonQuery($"UPDATE {dbSettings.tableName} SET quantity = '{item_quantity}', is_disabled = 'true' WHERE id = '{item_id}'");
         //  Debug.Log(item_id + " : " + item_name + " has " + item_quantity + " left | lane id : " + item_id + "| Lane : " + item_lane);
 
         Close();
@@ -325,7 +351,7 @@ public class StockDBModelEntity : DBModelEntity
             {
                 for (int y = 0; y < System.Convert.ToInt32(drc[i]["quantity"]); y++)
                 {
-                    GiveReward();
+                    GiveRewardAutoTest();
                     yield return new WaitForSeconds(autoDropInterval);
                 }
 

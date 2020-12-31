@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 /// Tips: Attach to a gameObject, drag SwitchScene() function into an UnityEvent and type in scene index/scene name
 /// Notes: You can also call SwitchScene() via script
 /// </summary>
-public class SceneSwitcher : MonoBehaviour {
-
+public class SceneSwitcher : MonoBehaviour
+{
     public void SwitchScene(int sceneNumber)
     {
-       // Debug.Log("switch to scene " + sceneNumber);
+        // Debug.Log("switch to scene " + sceneNumber);
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneNumber);
 
@@ -22,7 +22,7 @@ public class SceneSwitcher : MonoBehaviour {
 
     public void SwitchScene(string sceneName)
     {
-       // Debug.Log("switch to scene " + sceneName);
+        // Debug.Log("switch to scene " + sceneName);
         Time.timeScale = 1f;
         SceneManager.LoadScene(sceneName);
 
@@ -31,11 +31,12 @@ public class SceneSwitcher : MonoBehaviour {
         // 1 GAME
         // 2 SCORE
     }
+
     public void RestartScene()
     {
-      //  Debug.Log("restarting scene");
+        //  Debug.Log("restarting scene");
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //SceneTransitionManager.instance.RestartScene();
     }
 }

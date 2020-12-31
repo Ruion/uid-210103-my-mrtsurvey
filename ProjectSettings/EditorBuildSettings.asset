@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Game-200202-MY-Genting/REGISTRATION.unity
-    guid: 734bd1b61a9304f41ac8e16b11ec53df
-  - enabled: 1
-    path: Assets/Game-200202-MY-Genting/CONGRATULATIONS.unity
-    guid: 4c12cc9682e3b4b45ba6d4e5e277e520
+  - enabled: 0
+    path: Assets/MRT-SURVEY-APP/MRT-SURVEY-TEST2.unity
+    guid: f82e5a5a3549d3e40851d4c56ab281ad
   - enabled: 0
     path: Assets/General/Scenes/VendingMachineDropper.unity
     guid: a696561cf3a4c9a49bb8bb4cbd5887bd
-  - enabled: 0
+  - enabled: 1
     path: Assets/General/Scenes/AutoSync.unity
     guid: addc0f12bf966f442a88ab826753a583
   - enabled: 0

@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -96,8 +96,10 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: edc54f0fec380e243858449d66e6fe31,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -117,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -255,6 +259,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -323,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f6ff4865520a94aba0c2727445f5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: http://200202-my-genting.unicom-interactive-digital.com/public/api/download-used-redeem-code-list
+  apiName: download-used-redeem-code-list
   requestTimeout: 5
   requestInvokeDelay: 1
   downloadPath: 
@@ -332,6 +338,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 731575079}
+        m_TargetAssemblyTypeName: 
         m_MethodName: SyncOnlineVoucherCode
         m_Mode: 1
         m_Arguments:
@@ -395,6 +402,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -435,7 +444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &540132673
 Transform:
   m_ObjectHideFlags: 0
@@ -464,6 +473,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: LogMessageRecorder
       objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005352, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,6 +537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
         type: 3}
@@ -496,13 +560,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 4
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
         type: 3}
@@ -519,58 +583,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818601919106005353, guid: b4f53b67d07d7b746a80061677e4eaec,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4f53b67d07d7b746a80061677e4eaec, type: 3}
+--- !u!1 &631398782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1818601919106005352, guid: b4f53b67d07d7b746a80061677e4eaec,
+    type: 3}
+  m_PrefabInstance: {fileID: 631398781}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &631398783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631398782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 495d1764773e7fa4ebc636df1fde5b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emailFrom: liewyeat@gmail.com
+  emailTarget: asher_liew@uid.asia
+  emailPassword: asherIkeman@22
+  emailSubject: MRTVM01
+  emailBody: Error
+  attachmentPath: C:\UID-APP\200202-MY-Genting-QR\DebugMessages\11-26-2020_DebugMessage.csv
 --- !u!114 &731575079 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
@@ -651,6 +689,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 745719028}
+        m_TargetAssemblyTypeName: 
         m_MethodName: LaunchExecutable
         m_Mode: 1
         m_Arguments:
@@ -661,6 +700,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  eventsOnDisable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &929074479
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +756,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -782,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f6ff4865520a94aba0c2727445f5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: http://200202-my-genting.unicom-interactive-digital.com/public/api/generate-used-redeem-code-list
+  apiName: download-used-redeem-code-list
   requestTimeout: 5
   requestInvokeDelay: 1
   downloadPath: 
@@ -791,6 +835,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 67033775}
+        m_TargetAssemblyTypeName: 
         m_MethodName: DownloadFile
         m_Mode: 1
         m_Arguments:
@@ -853,6 +898,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -885,182 +932,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5262592185813106690}
     m_Modifications:
-    - target: {fileID: 3723183745067904047, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: m_Name
-      value: VoucherDistributionDatabaseModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: dbSettings.columns.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: serializationData.Prefab
-      value: 
-      objectReference: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: db_connection_string
-      value: URI = file:C:\UID-APP\200202-MY-Genting\Databases\VoucherDistributionDatabaseModel.sqlite
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1911789971}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Run
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Run
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: hasSync
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: errorHandler
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: emptyHandler
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: internetErrorHandler
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: blockDataHandler
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: successBar
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
       propertyPath: failBar
@@ -1068,28 +939,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Run
-      objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
-        type: 3}
-      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: hasSync
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
@@ -1103,12 +954,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: dbSettings.folderPath
-      value: C:\UID-APP\200202-MY-Genting
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: dbSettings.columns.Array.data[5].dummyPrefix
+      propertyPath: successBar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: emptyHandler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: errorHandler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: blockDataHandler
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
@@ -1118,8 +984,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
+      propertyPath: db_connection_string
+      value: URI = file:C:\UID-APP\200202-MY-Genting\Databases\VoucherDistributionDatabaseModel.sqlite
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: internetErrorHandler
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: dbSettings.folderPath
+      value: C:\UID-APP\200202-MY-Genting
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
       propertyPath: selectCustomCondition
       value: is_sync = 'no' OR is_sync = 'fail' ORDER BY is_sync DESC LIMIT 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: dbSettings.columns.Array.size
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
@@ -1130,6 +1022,16 @@ PrefabInstance:
         type: 3}
       propertyPath: dbSettings.columns.Array.data[4].sync
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: dbSettings.columns.Array.data[5].name
+      value: is_sync
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: dbSettings.columns.Array.data[5].sync
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
@@ -1148,13 +1050,153 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: dbSettings.columns.Array.data[5].name
-      value: is_sync
+      propertyPath: dbSettings.columns.Array.data[5].dummyPrefix
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: dbSettings.columns.Array.data[5].sync
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1911789971}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Run
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Run
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Run
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncEnd.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: OnSyncStart.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
@@ -1163,17 +1205,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
@@ -1193,23 +1240,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalPosition.z
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
+    - target: {fileID: 3723183745067904047, guid: a9f3bae73d0e90a4cb600f99441796f1,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+      propertyPath: m_Name
+      value: VoucherDistributionDatabaseModel
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3723183745067904044, guid: a9f3bae73d0e90a4cb600f99441796f1, type: 3}
@@ -1236,6 +1283,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1911789973}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Sync
         m_Mode: 1
         m_Arguments:
@@ -1265,6 +1313,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1911789973}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Sync
         m_Mode: 1
         m_Arguments:
@@ -1275,6 +1324,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  eventsOnDisable:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1911789973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,7 +1362,7 @@ MonoBehaviour:
       Data: 
   dbSettings:
     fileName: VoucherDistributionDatabaseModel
-    folderPath: C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize
+    folderPath: C:\UID-APP\210103-MY-MRT
     dbName: VoucherDistributionDatabaseModel
     tableName: VoucherDistributionDatabaseModel
     columns:
@@ -1330,6 +1382,18 @@ MonoBehaviour:
       attribute: TEXT
       sync: 1
       dummyPrefix: 
+    - name: voucher_category
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: name
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
+    - name: source_identifier_code
+      attribute: TEXT
+      sync: 1
+      dummyPrefix: 
     - name: created_at
       attribute: TEXT
       sync: 1
@@ -1338,11 +1402,7 @@ MonoBehaviour:
       attribute: TEXT
       sync: 0
       dummyPrefix: 
-    - name: voucher_category
-      attribute: TEXT
-      sync: 0
-      dummyPrefix: 
-    sendURL: http://200202-my-genting.unicom-interactive-digital.com/public/api/
+    sendURL: http://localhost:8000/public/api/
     sendAPI: submit-voucher-data
     serverResponsesArray:
     - resultResponse: Success
@@ -1353,7 +1413,6 @@ MonoBehaviour:
     keyDownloadAPI: download-used-redeem-code-list
     keyFileName: VoucherDistributionDatabaseModel Online
     serverEmailFilePath: 
-  db_connection_string: URI = file:C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize\Databases\VoucherDistributionDatabaseModel.sqlite
   numberToPopulate: 10
   TestIndex: 0
   selectCustomCondition: is_sync = 'no' OR is_sync = 'fail' ORDER BY is_sync DESC
@@ -1374,6 +1433,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1911789971}
+        m_TargetAssemblyTypeName: 
         m_MethodName: Run
         m_Mode: 1
         m_Arguments:
@@ -1384,17 +1444,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1093620019}
-        m_MethodName: GetRequest
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  preventDuplicateSave: 1
+  networkDB: {fileID: 0}
+  syncFileName: 
+  syncDeleteFileName: 
 --- !u!4 &1911789974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3723183745067904045, guid: a9f3bae73d0e90a4cb600f99441796f1,
@@ -1454,6 +1507,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1486,80 +1541,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1661002323923998949, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: savePath
+      value: C:\UID-APP\200202-MY-Genting
+      objectReference: {fileID: 0}
     - target: {fileID: 2901172509013719973, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
       propertyPath: m_Name
       value: GameSettingEntity_DoNotChangeName
       objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+    - target: {fileID: 2901172509013719973, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalRotation.w
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+    - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      propertyPath: gameSettings.gameTime
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
-      propertyPath: gameSettings.serverDomainURL
-      value: http://200202-my-genting.unicom-interactive-digital.com
-      objectReference: {fileID: 0}
-    - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: gameSettings.checkInternetTimeOut
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
-        type: 3}
-      propertyPath: gameSettings.downloadCodeAPITimeOut
-      value: 10
+      propertyPath: gameSettings.debugMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
@@ -1578,18 +1583,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
-      propertyPath: gameSettings.gameTime
-      value: 20
+      propertyPath: gameSettings.serverDomainURL
+      value: http://200202-my-genting.unicom-interactive-digital.com
       objectReference: {fileID: 0}
     - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
-      propertyPath: gameSettings.debugMode
+      propertyPath: gameSettings.checkInternetTimeOut
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5107244017836863797, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: gameSettings.downloadCodeAPITimeOut
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1661002323923998949, guid: 8cf9bc346bec815448f5896dcc069492,
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
         type: 3}
-      propertyPath: savePath
-      value: C:\UID-APP\200202-MY-Genting
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942889261852245931, guid: 8cf9bc346bec815448f5896dcc069492,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf9bc346bec815448f5896dcc069492, type: 3}
@@ -1737,82 +1797,70 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5262592185813106690}
     m_Modifications:
-    - target: {fileID: 6454732178190651607, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: m_Name
-      value: VoucherCodeDBModelEntity
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: onSyncFinish.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: dbSettings.columns.Array.size
-      value: 4
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: onSyncFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: serializationData.Prefab
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: isFetchingData
-      value: 0
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: dbSettings.sendURL
-      value: http://200202-my-genting.unicom-interactive-digital.com/public/api/
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Run
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: onSyncFinish.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Sync
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Run
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: dbSettings.folderPath
-      value: C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize
+      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: localTxt
-      value: C:/UID-APP/200202-MY-Genting-VoucherCodeExchangePrize/VoucherCodeDBModelEntity
-        Online.txt
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: dbSettings.columns.Array.data[2].dummyPrefix
-      value: ready
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: dbSettings.columns.Array.data[3].name
-      value: voucher_category
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: dbSettings.columns.Array.data[3].attribute
-      value: TEXT
-      objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
-        type: 3}
-      propertyPath: dbSettings.serverEmailFilePath
-      value: C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize\VoucherCodeDBModelEntity
-        Online.txt
-      objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
-        type: 3}
-      propertyPath: db_connection_string
-      value: URI = file:C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize\Databases\VoucherCodeDBModelEntity.sqlite
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
@@ -1831,6 +1879,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -1843,16 +1896,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
@@ -1869,65 +1912,87 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651607, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
+      propertyPath: m_Name
+      value: VoucherCodeDBModelEntity
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651607, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651606, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+      propertyPath: localTxt
+      value: C:/UID-APP/200202-MY-Genting-VoucherCodeExchangePrize/VoucherCodeDBModelEntity
+        Online.txt
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      propertyPath: isFetchingData
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: dbSettings.sendURL
+      value: http://200202-my-genting.unicom-interactive-digital.com/public/api/
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+        type: 3}
+      propertyPath: db_connection_string
+      value: URI = file:C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize\Databases\VoucherCodeDBModelEntity.sqlite
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+        type: 3}
+      propertyPath: dbSettings.folderPath
+      value: C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+        type: 3}
+      propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Run
+      propertyPath: dbSettings.columns.Array.size
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: dbSettings.serverEmailFilePath
+      value: C:\UID-APP\200202-MY-Genting-VoucherCodeExchangePrize\VoucherCodeDBModelEntity
+        Online.txt
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      propertyPath: dbSettings.columns.Array.data[3].name
+      value: voucher_category
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
+      propertyPath: dbSettings.columns.Array.data[3].attribute
+      value: TEXT
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: dbSettings.columns.Array.data[2].dummyPrefix
+      value: ready
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+        type: 3}
+      propertyPath: onSyncFinish.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
+        type: 3}
+      propertyPath: onSyncFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
+    - target: {fileID: 6454732178190651609, guid: 3fc442e4514b7274d95a64077063a28e,
         type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Run
-      objectReference: {fileID: 0}
-    - target: {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e,
-        type: 3}
-      propertyPath: eventsOEnable.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: onSyncFinish.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Sync
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6454732178190651604, guid: 3fc442e4514b7274d95a64077063a28e, type: 3}

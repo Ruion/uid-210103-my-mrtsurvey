@@ -34,17 +34,17 @@ public class TimeManager : MonoBehaviour
     public UnityEvent countdownEndEvents;
 
     public bool useUpdate = false;
-    public bool useShortcut = true;
+    public bool useShortcut = false;
     private bool counting = false;
 
     public bool useGameSettingTime = false;
 
-    private void Awake()
+    private void OnEnable()
     {
+        counting = false;
         if (useGameSettingTime)
         {
-            GameSettingEntity gse = GameObject.FindGameObjectWithTag("GameSettingMaster").GetComponent<GameSettingEntity>();
-            second = gse.gameSettings.gameTime;
+            second = JSONExtension.LoadEnvInt("GAME_TIME");
         }
 
         initialSecond = second;
@@ -71,15 +71,22 @@ public class TimeManager : MonoBehaviour
         if (!useUpdate) StartCoroutine(StartCountdown());
     }
 
+    public void StopTimer()
+    {
+        counting = false;
+
+        StopAllCoroutines();
+    }
+
     private void Update()
     {
         if (useUpdate && counting)
         {
             second -= Time.deltaTime;
 
-            System.TimeSpan interval = System.TimeSpan.FromSeconds(second);
             if (countDownTexts.Length > 0)
             {
+                System.TimeSpan interval = System.TimeSpan.FromSeconds(second);
                 UpdateText(System.String.Format("{0}:{1}",
                  new object[] { interval.Seconds, interval.Milliseconds }
                  ));
@@ -87,10 +94,10 @@ public class TimeManager : MonoBehaviour
 
             if (second <= 0)
             {
-                countdownEndEvents.Invoke();
                 counting = false;
-                ResetCountDown();
                 UpdateText("00:00");
+                ResetCountDown();
+                countdownEndEvents.Invoke();
             }
         }
 
@@ -164,6 +171,6 @@ public class TimeManager : MonoBehaviour
 
     public void ResetCountDown()
     {
-        second = initialSecond;
+        countDownSeconds = initialSecond;
     }
 }

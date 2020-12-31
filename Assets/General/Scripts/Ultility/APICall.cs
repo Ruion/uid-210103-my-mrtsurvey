@@ -7,10 +7,12 @@ using Sirenix.OdinInspector;
 using System.Threading.Tasks;
 using System;
 using System.IO;
+using System.Collections.Specialized;
 
 public class APICall : MonoBehaviour
 {
-    public string url = "http://200202-my-genting.unicom-interactive-digital.com/public/api/download-used-redeem-code-list";
+    private string url;
+    public string apiName = "download-used-redeem-code-list";
 
     [Header("Time out in seconds")]
     public int requestTimeout = 5;
@@ -46,6 +48,10 @@ public class APICall : MonoBehaviour
             downloadFileName = Path.Combine(folder, $"{downloadFileNameWithoutExtension}-download{extension}");
             downloadDestination = Path.Combine(folder, fileName);
         }
+
+        url = $"{JSONExtension.LoadEnv("SERVER_URL")}public/api/{apiName}";
+
+        if (!File.Exists(Path.Combine(folder, fileName))) File.Create(Path.Combine(folder, fileName));
     }
 
     public async void GetRequest()
@@ -67,31 +73,26 @@ public class APICall : MonoBehaviour
     [Button]
     public void DownloadFile()
     {
-        //Debug.Log(downloadDestination);
-        gm = FindObjectOfType<GameSettingEntity>();
-
         WebClient webClient = new WebClient();
         webClient.DownloadFileAsync(new Uri(url), Path.Combine(folder, downloadFileName));
         webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
-        // write downloaded file to exact file
     }
 
     private async void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
     {
-        FileStream destination = new FileStream(downloadDestination, FileMode.Open);
+        if (File.Exists(downloadDestination)) File.Delete(downloadDestination);
 
-        using (FileStream source = File.Open(downloadFileName,
-            FileMode.Open))
+        using (FileStream destination = new FileStream(downloadDestination, FileMode.OpenOrCreate))
         {
-            Console.WriteLine("Source length: {0}", source.Length.ToString());
+            // write downloaded file to exact file
+            using (FileStream source = File.Open(downloadFileName,
+                FileMode.Open))
+            {
+                await source.CopyToAsync(destination);
 
-            // Copy source to destination.
-            //source.CopyTo(destination);
-
-            await source.CopyToAsync(destination);
-
-            source.Close();
-            destination.Close();
+                source.Close();
+                destination.Close();
+            }
         }
 
         await Task.Delay(requestInvokeDelay * 1000);

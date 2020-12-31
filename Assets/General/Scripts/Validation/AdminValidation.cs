@@ -7,7 +7,7 @@ using TMPro;
 /// <summary>
 /// Secure the Admin Page by using password. Person type in correct password in passwordInput field
 /// grant control of Admin Page
-/// Tips: Attach to AdminPage gameObject, set password in inspector, drag TMP_InputFIeld 
+/// Tips: Attach to AdminPage gameObject, set password in inspector, drag TMP_InputFIeld
 /// and function to execute in OnPasswordCorrect event
 /// </summary>
 public class AdminValidation : MonoBehaviour
@@ -17,14 +17,17 @@ public class AdminValidation : MonoBehaviour
 
     public UnityEvent OnPasswordCorrect;
 
-
     public virtual void Validate()
     {
-        if(passwordInput.text == password)
+        if (passwordInput.text == password)
         {
-            OnPasswordCorrect.Invoke();
+            PasswordCorrect();
             passwordInput.text = "";
-           
         }
+    }
+
+    public void PasswordCorrect()
+    {
+        OnPasswordCorrect.Invoke();
     }
 }

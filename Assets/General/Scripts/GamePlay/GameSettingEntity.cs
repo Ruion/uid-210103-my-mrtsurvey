@@ -1,8 +1,4 @@
 ﻿using UnityEngine;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.Reflection;
-using System.Collections.Generic;
 
 /// <summary>
 /// Master class for Saving and Retrieving gameplay settings.
@@ -16,7 +12,23 @@ public class GameSettingEntity : MonoBehaviour
 
     public JSONSetter jsonSetter;
 
-    public string Project_Folder { get { return jsonSetter.savePath; } }
+    public string Server_URL { get { return JSONExtension.LoadEnv("SERVER_URL").ToString(); } }
+
+    public string Project_Folder
+    {
+        get
+        {
+            return @"C:\UID-APP\" + JSONExtension.LoadEnv("PROJECT_CODE").ToString();
+        }
+    }
+
+    public string SettingFilePath
+    {
+        get
+        {
+            return @"C:\UID-APP\" + JSONExtension.LoadEnv("PROJECT_CODE").ToString() + "\\Settings\\Setting";
+        }
+    }
 
     /// <summary>
     /// Save the settings value in to file. This function eccesible by right click component in inspector and click "SaveSetting"
@@ -24,13 +36,9 @@ public class GameSettingEntity : MonoBehaviour
     [ContextMenu("SaveSetting")]
     public virtual void SaveSetting()
     {
-        // GameSetting.SaveSetting(gameSettings);
+        JSONExtension.SaveValues(SettingFilePath, gameSettings);
 
-        string filePath = jsonSetter.savePath + "\\" + "Setting";
-
-        JSONExtension.SaveValues(filePath, gameSettings);
-
-        Debug.Log("Save setting success");
+        Debug.Log(name + " Save setting success");
     }
 
     /// <summary>
@@ -39,14 +47,7 @@ public class GameSettingEntity : MonoBehaviour
     [ContextMenu("LoadSetting")]
     public virtual void LoadSetting()
     {
-        /*
-        gameSettings.savePath = jsonSetter.savePath;
-        gameSettings = GameSetting.LoadSetting(gameSettings);
-        */
-
-        string filePath = jsonSetter.savePath + "\\" + "Setting";
-
-        JSONExtension.LoadValues(filePath, gameSettings);
+        JSONExtension.LoadValues(SettingFilePath, gameSettings);
     }
 
     /// <summary>
@@ -62,11 +63,12 @@ public class GameSettingEntity : MonoBehaviour
         gameSettings = dm.gameSettings;
     }
 
+    [ContextMenu("Awake")]
     protected virtual void Awake()
     {
-        if (jsonSetter == null) jsonSetter = FindObjectOfType<JSONSetter>();
+        //if (jsonSetter == null) jsonSetter = FindObjectOfType<JSONSetter>();
         LoadSetting();
-        LoadGameSettingFromMaster();
+        //LoadGameSettingFromMaster();
     }
 }
 

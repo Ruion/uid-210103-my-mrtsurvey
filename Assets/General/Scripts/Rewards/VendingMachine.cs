@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System.IO.Ports;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Collections;
 
 public class VendingMachine : WaitExtension
@@ -579,37 +580,30 @@ public byte aa;*/
         System.Threading.Thread.Sleep(2000);
     }
 
-    public void TurnMotor(string id)
+    public async void TurnMotor(string id)
     {
+        /* var process = new System.Diagnostics.Process
+            {
+                StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "C:\\Windows\\System32\\fsutil.exe",
+                    Arguments = "behavior query SymlinkEvaluation",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+        };*/
+
         var proc = new System.Diagnostics.Process();
 
-        var process = new System.Diagnostics.Process
-        {
-            StartInfo = new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = "C:\\Windows\\System32\\fsutil.exe",
-                Arguments = "behavior query SymlinkEvaluation",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = true
-            }
-        };
-
         proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-        proc.StartInfo.Verb = "print";
 
         // Using PDFtoPrinter
-        proc.StartInfo.FileName = "C:\\UID-APP\\Vending-Machine-Controller.exe";
+        proc.StartInfo.FileName = "C:\\UID-APP\\Vending-Machine-Controller\\Vending-Machine-Controller.exe";
         //  proc.StartInfo.Arguments = "-motor_lane " + motor_lane;
         proc.StartInfo.Arguments = "-motor_lane motor_" + id;
 
         proc.StartInfo.RedirectStandardOutput = true;
-
-        //  Debug.Log(proc.StartInfo.Arguments);
-        /*
-        proc.StartInfo.FileName = final_path;
-        proc.StartInfo.Arguments = final_path2;
-        */
 
         proc.StartInfo.UseShellExecute = false;
         proc.StartInfo.CreateNoWindow = true;
@@ -618,14 +612,13 @@ public byte aa;*/
 
         PlayerPrefs.SetString("turn_result", "Success");
 
-        while (!proc.StandardOutput.EndOfStream)
+        string output = await proc.StandardOutput.ReadToEndAsync();
+        proc.WaitForExit();
+
+        if (output.Contains("fail"))
         {
-            // Debug.Log(proc.StandardOutput.ReadLine());
-            if (proc.StandardOutput.ReadLine().Contains("fail"))
-            {
-                PlayerPrefs.SetString("turn_result", "Fail");
-                if (onMotorFail.GetPersistentEventCount() > 0) onMotorFail.Invoke();
-            }
+            PlayerPrefs.SetString("turn_result", "Fail");
+            if (onMotorFail.GetPersistentEventCount() > 0) onMotorFail.Invoke();
         }
 
         if (proc.HasExited == false)
@@ -639,13 +632,11 @@ public byte aa;*/
 
         if (onMotorTurn.GetPersistentEventCount() > 0) onMotorTurn.Invoke();
 
-        if (PlayerPrefs.GetString("turn_result") == "Fail") StartCoroutine(SecondTurn(id));
+        if (PlayerPrefs.GetString("turn_result") == "Fail") SecondTurn(id);
     }
 
-    private IEnumerator SecondTurn(string id)
+    private async void SecondTurn(string id)
     {
-        yield return new WaitForSeconds(1.5f);
-
         var proc = new System.Diagnostics.Process();
 
         var process = new System.Diagnostics.Process
@@ -661,20 +652,12 @@ public byte aa;*/
         };
 
         proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-        proc.StartInfo.Verb = "print";
 
-        // Using PDFtoPrinter
         proc.StartInfo.FileName = "C:\\UID-APP\\Vending-Machine-Controller.exe";
         //  proc.StartInfo.Arguments = "-motor_lane " + motor_lane;
         proc.StartInfo.Arguments = "-motor_lane motor_" + id;
 
         proc.StartInfo.RedirectStandardOutput = true;
-
-        //  Debug.Log(proc.StartInfo.Arguments);
-        /*
-        proc.StartInfo.FileName = final_path;
-        proc.StartInfo.Arguments = final_path2;
-        */
 
         PlayerPrefs.SetString("turn_result", "Success");
 
@@ -683,14 +666,15 @@ public byte aa;*/
 
         proc.Start();
 
-        while (!proc.StandardOutput.EndOfStream)
+        PlayerPrefs.SetString("turn_result", "Success");
+
+        string output = await proc.StandardOutput.ReadToEndAsync();
+        proc.WaitForExit();
+
+        if (output.Contains("fail"))
         {
-            // Debug.Log(proc.StandardOutput.ReadLine());
-            if (proc.StandardOutput.ReadLine().Contains("fail"))
-            {
-                PlayerPrefs.SetString("turn_result", "Fail");
-                if (onMotorFail.GetPersistentEventCount() > 0) onMotorFail.Invoke();
-            }
+            PlayerPrefs.SetString("turn_result", "Fail");
+            if (onMotorFail.GetPersistentEventCount() > 0) onMotorFail.Invoke();
         }
 
         if (proc.HasExited == false)
@@ -704,13 +688,11 @@ public byte aa;*/
 
         if (onMotorTurn.GetPersistentEventCount() > 0) onMotorTurn.Invoke();
 
-        if (PlayerPrefs.GetString("turn_result") == "Fail") StartCoroutine(ThirdTurn(id));
+        if (PlayerPrefs.GetString("turn_result") == "Fail") ThirdTurn(id);
     }
 
-    private IEnumerator ThirdTurn(string id)
+    private async void ThirdTurn(string id)
     {
-        yield return new WaitForSeconds(1.5f);
-
         var proc = new System.Diagnostics.Process();
 
         var process = new System.Diagnostics.Process
@@ -726,7 +708,6 @@ public byte aa;*/
         };
 
         proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-        proc.StartInfo.Verb = "print";
 
         // Using PDFtoPrinter
         proc.StartInfo.FileName = "C:\\UID-APP\\Vending-Machine-Controller.exe";
@@ -735,11 +716,6 @@ public byte aa;*/
 
         proc.StartInfo.RedirectStandardOutput = true;
 
-        //  Debug.Log(proc.StartInfo.Arguments);
-        /*
-        proc.StartInfo.FileName = final_path;
-        proc.StartInfo.Arguments = final_path2;
-        */
         PlayerPrefs.SetString("turn_result", "Success");
 
         proc.StartInfo.UseShellExecute = false;
@@ -747,14 +723,15 @@ public byte aa;*/
 
         proc.Start();
 
-        while (!proc.StandardOutput.EndOfStream)
+        PlayerPrefs.SetString("turn_result", "Success");
+
+        string output = await proc.StandardOutput.ReadToEndAsync();
+        proc.WaitForExit();
+
+        if (output.Contains("fail"))
         {
-            // Debug.Log(proc.StandardOutput.ReadLine());
-            if (proc.StandardOutput.ReadLine().Contains("fail"))
-            {
-                PlayerPrefs.SetString("turn_result", "Fail");
-                if (onMotorFail.GetPersistentEventCount() > 0) onMotorFail.Invoke();
-            }
+            PlayerPrefs.SetString("turn_result", "Fail");
+            if (onMotorFail.GetPersistentEventCount() > 0) onMotorFail.Invoke();
         }
 
         if (proc.HasExited == false)

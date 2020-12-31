@@ -12,6 +12,7 @@ TagManager:
   - GameSettingMaster
   - Debugger
   - SceneTransition
+  - MainThreadDispatcher
   layers:
   - Default
   - TransparentFX

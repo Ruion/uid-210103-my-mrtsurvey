@@ -5,6 +5,7 @@ using System.Data;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Create/delete table, insert/update/delete data, and send data to server \n
@@ -22,6 +23,15 @@ public class DBModelEntity : DBModelMaster
     public UnityEvent OnSyncStart;
     public UnityEvent OnSyncEnd;
     protected bool Saved = false;
+    public bool preventDuplicateSave = true;
+
+    public NetworkDatabaseModel networkDB;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        Saved = false;
+    }
 
     /// <summary>
     /// Save PlayerPrefs value into all table column set in inspector
@@ -30,7 +40,7 @@ public class DBModelEntity : DBModelMaster
     {
         base.SaveToLocal();
 
-        if (Saved)
+        if (Saved && preventDuplicateSave)
         {
             Debug.Log(name + " : Data already saved to local");
             return;
@@ -53,7 +63,22 @@ public class DBModelEntity : DBModelMaster
             val[i] = PlayerPrefs.GetString(col[i]);
         }
 
-        AddData(col, val);
+        System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+        sw.Start();
+        if (networkDB == null)
+            AddData(col, val);
+        else
+        {
+            Parallel.Invoke(
+                () => AddData(col, val),
+                () =>
+                {
+                    if (networkDB.PingHost().Result)
+                        networkDB.AddData(col, val, dbSettings.tableName);
+                }
+             );
+        }
+        //Debug.Log($"add data : {sw.Elapsed}", gameObject);
     }
 
     /// <summary>
@@ -71,14 +96,11 @@ public class DBModelEntity : DBModelMaster
     /// <returns></returns>
     protected virtual IEnumerator SyncToServer()
     {
-        
         yield return StartCoroutine(NetworkExtension.CheckForInternetConnectionRoutine());
 
         if (NetworkExtension.internet == false)
         {
             //No connection
-            //ToogleHandler(blockDataHandler, false);
-            //ToogleHandler(internetErrorHandler, false);
             Debug.Log(name + " No internet. Stop SyncToServer() coroutine");
             SyncEnded();
             StopAllCoroutines();
@@ -99,15 +121,10 @@ public class DBModelEntity : DBModelMaster
             yield break;
         }
 
-        //  Debug.Log(name + " : unsync data : " + rows.Count);
-        int totalSent = 0;
-        int totalNotSent = 0;
-
         Debug.Log(name + " : Start sync");
-        //ToogleHandler(blockDataHandler, true);
 
         // Get global event_code
-        string source_identifier_code = JSONExtension.LoadSetting(dbSettings.folderPath + "\\Setting", "source_identifier_code");
+        string source_identifier_code = JSONExtension.LoadEnv("SOURCE_IDENTIFIER_CODE");
 
         for (int u = 0; u < rows.Count; u++)
         {
@@ -116,8 +133,6 @@ public class DBModelEntity : DBModelMaster
             if (NetworkExtension.internet == false)
             {
                 //No connection
-                //ToogleHandler(blockDataHandler, false);
-                //ToogleHandler(internetErrorHandler, false);
                 Debug.Log(name + "SyncToServer() Failed. No internet. Stop SyncToServer() coroutine");
                 SyncEnded();
                 StopAllCoroutines();
@@ -169,14 +184,11 @@ public class DBModelEntity : DBModelMaster
                 if (www.isNetworkError || www.isHttpError)
                 {
                     ErrorAction(www, "server error \n Values : " + values);
-                    totalNotSent++;
-                    //ToogleStatusBar(failBar, totalNotSent);
-                    //ToogleHandler(errorHandler, true);
 
                     ExecuteCustomNonQuery("UPDATE " + dbSettings.tableName + " SET is_sync = 'fail' WHERE id = " + entityId);
-                    SyncEnded();
-                    StopAllCoroutines();
-                    yield break;
+                    //SyncEnded();
+                    //StopAllCoroutines();
+                    //yield break;
                 }
                 else
                 {
@@ -187,9 +199,6 @@ public class DBModelEntity : DBModelMaster
                     {
                         Debug.LogError(name + " - " + jsonData.result + "\n Values : " + values);
 
-                        totalNotSent++;
-                        ToogleStatusBar(failBar, totalNotSent);
-
                         if (!jsonData.result.Contains("Duplicate"))
                             ExecuteCustomNonQuery("UPDATE " + dbSettings.tableName + " SET is_sync = 'fail' WHERE id = " + entityId);
                         else
@@ -197,13 +206,8 @@ public class DBModelEntity : DBModelMaster
                     }
                     else
                     {
-                        // Debug.Log(name + " : " + dbSettings.serverResponsesArray[0].resultResponseMessage);
-
                         // update successfully sync is_sync to submitted
                         ExecuteCustomNonQuery("UPDATE " + dbSettings.tableName + " SET is_sync = 'yes' WHERE id = " + entityId);
-                        totalSent++;
-
-                        //ToogleStatusBar(successBar, totalSent);
                     }
 
                     //  yield return new WaitForEndOfFrame();
@@ -214,16 +218,13 @@ public class DBModelEntity : DBModelMaster
 
             #endregion WebRequest
         }
-        //ToogleHandler(blockDataHandler, false);
-        //if (hasSync) failBar.GetComponent<StatusBar>().Finish();
-        //if (hasSync) successBar.GetComponent<StatusBar>().Finish();
         SyncEnded();
     }
 
     protected virtual void SyncEnded()
     {
-        if(rows != null)
-            if(rows.Count > 0)
+        if (rows != null)
+            if (rows.Count > 0)
                 rows.Clear();
 
         Close();
@@ -237,9 +238,6 @@ public class DBModelEntity : DBModelMaster
     /// <param name="errorMessage"></param>
     protected void ErrorAction(UnityWebRequest www, string errorMessage)
     {
-        ToogleHandler(blockDataHandler, false);
-        ToogleHandler(failBar, true);
-
         Debug.LogError(name + " :\n" + errorMessage + "\n" + www.error + "\n" + " server url: " + dbSettings.sendURL + dbSettings.sendAPI);
     }
 }

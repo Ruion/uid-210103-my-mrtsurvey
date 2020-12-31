@@ -11,7 +11,7 @@ public class ScoreVisualizer : MonoBehaviour
     private int score;
 
     [SerializeField]
-    private int maxScore;
+    private int maxScore = 99999;
 
     private void Awake()
     {
@@ -71,8 +71,8 @@ public class ScoreVisualizer : MonoBehaviour
 
         GameSettingEntity gse = FindObjectOfType<GameSettingEntity>();
 
-        if (score >= gse.gameSettings.tier1Score) PlayerPrefs.SetString("voucher_code", "TIER1");
-        if (score >= gse.gameSettings.tier2Score) PlayerPrefs.SetString("voucher_code", "TIER2");
-        if (score >= gse.gameSettings.tier3Score) PlayerPrefs.SetString("voucher_code", "TIER3");
+        if (score >= JSONExtension.LoadEnvInt(("TIER1_SCORE"))) PlayerPrefs.SetString("voucher_code", "TIER1");
+        if (score >= JSONExtension.LoadEnvInt(("TIER2_SCORE"))) PlayerPrefs.SetString("voucher_code", "TIER2");
+        if (score >= JSONExtension.LoadEnvInt(("TIER3_SCORE"))) PlayerPrefs.SetString("voucher_code", "TIER3");
     }
 }

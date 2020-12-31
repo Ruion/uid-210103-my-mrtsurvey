@@ -7,13 +7,18 @@ using UnityEngine.Events;
 /// Tips: attach this component to gameObject and assign functions to eventsOEnable.
 /// Caution: gameObject attaching this component will execute eventsOEnable everytime it is activated
 /// </summary>
-public class StartEventsOnEnable : MonoBehaviour {
-
+public class StartEventsOnEnable : MonoBehaviour
+{
     public UnityEvent eventsOEnable;
+    public UnityEvent eventsOnDisable;
 
-	void OnEnable()
+    private void OnEnable()
     {
         eventsOEnable.Invoke();
     }
 
+    private void OnDisable()
+    {
+        eventsOnDisable.Invoke();
+    }
 }
