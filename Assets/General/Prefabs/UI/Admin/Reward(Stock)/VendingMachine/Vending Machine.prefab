@@ -13119,6 +13119,7 @@ MonoBehaviour:
       m_Calls: []
   preventDuplicateSave: 0
   networkDB: {fileID: 0}
+  isSyncEnable: 1
 --- !u!1 &8619593272235533366
 GameObject:
   m_ObjectHideFlags: 0
@@ -14761,6 +14762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3218938852967731069, guid: 4fe0c32bf32bdf946992d943067aa034,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3218938852967731069, guid: 4fe0c32bf32bdf946992d943067aa034,
         type: 3}

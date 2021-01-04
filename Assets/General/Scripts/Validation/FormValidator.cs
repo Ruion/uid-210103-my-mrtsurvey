@@ -476,6 +476,7 @@ public class FormField
                         {
                             Debug.Log($"local validation - {same} is use");
                             isDuplicated = true;
+                            isValid = false;
                         }
 
                         if (!isDuplicated)
@@ -488,6 +489,7 @@ public class FormField
                                 if (System.Convert.ToBoolean(networkResponse) != true)
                                 {
                                     isDuplicated = true;
+                                    isValid = false;
                                     Debug.Log($"network validation {processedValue} is duplicated");
                                 }
                             }

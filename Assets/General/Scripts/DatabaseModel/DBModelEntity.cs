@@ -97,7 +97,7 @@ public class DBModelEntity : DBModelMaster
     /// </summary>
     public override void Sync()
     {
-        if (!isSyncEnable) return;
+        if (!isSyncEnable) { OnSyncEnd.Invoke(); return; }
 
         base.Sync();
         StartCoroutine(SyncToServer());

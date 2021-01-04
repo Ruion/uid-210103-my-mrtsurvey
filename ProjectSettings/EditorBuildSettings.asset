@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/General/Scenes/VendingMachineTester.unity
     guid: a90eace5ea8edfc46af49c1d0be94028
+  - enabled: 0
+    path: Assets/MRT-SURVEY-APP/MRT-SURVEY-LIVE.unity
+    guid: 79be352ee4040504ca3609b4b2c6a96e
   m_configObjects: {}
