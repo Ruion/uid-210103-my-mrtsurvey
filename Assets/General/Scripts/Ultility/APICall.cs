@@ -32,17 +32,13 @@ public class APICall : MonoBehaviour
     private string extension;
     private string downloadDestination;
 
-    private GameSettingEntity gm;
-
     public UnityEvent onRequestSuccess;
 
     private void OnEnable()
     {
-        gm = FindObjectOfType<GameSettingEntity>();
-
         if (fileName != null || fileName != "")
         {
-            folder = gm.Project_Folder;
+            folder = JSONExtension.PROJECT_FOLDER;
             downloadFileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
             extension = Path.GetExtension(fileName);
             downloadFileName = Path.Combine(folder, $"{downloadFileNameWithoutExtension}-download{extension}");

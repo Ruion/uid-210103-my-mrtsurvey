@@ -6,12 +6,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Sirenix.OdinInspector;
 
 #region Save Load Class
+
 /// <summary>
 /// Hold various local and server database settings
 /// </summary>
 public class DBSetting
 {
-    
     // save the game setting file
     public static void SaveSetting(DBEntitySetting setting)
     {
@@ -20,14 +20,13 @@ public class DBSetting
         setting.SetUpTextPath();
         FileStream stream = new FileStream(path, FileMode.Create);
 
-       // DBEntitySetting s = new DBEntitySetting(setting);
+        // DBEntitySetting s = new DBEntitySetting(setting);
         try
         {
-           // formatter.Serialize(stream, s);
+            // formatter.Serialize(stream, s);
             formatter.Serialize(stream, setting);
             stream.Close();
             Debug.Log("Save setting success");
-
         }
         catch (System.Exception ex)
         {
@@ -43,7 +42,7 @@ public class DBSetting
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            using(FileStream stream = new FileStream(path, FileMode.Open))
+            using (FileStream stream = new FileStream(path, FileMode.Open))
             {
                 DBEntitySetting setting = (DBEntitySetting)formatter.Deserialize(stream);
                 stream.Close();
@@ -57,21 +56,21 @@ public class DBSetting
             return null;
         }
     }
-
 }
-#endregion
+
+#endregion Save Load Class
 
 [System.Serializable]
 public class DBEntitySetting
 {
     public string fileName;
-    [FolderPath(AbsolutePath = true, UseBackslashes = true)]
-    public string folderPath;
+    public string folderPath { get { return @"C:\UID-APP\" + JSONExtension.LoadEnv("PROJECT_CODE"); } }
 
     [HideInInspector] public string dbName;
     [HideInInspector] public string tableName;
 
-    [TabGroup("LocalDB Settings")] [TableList]
+    [TabGroup("LocalDB Settings")]
+    [TableList]
     public List<TableColumn> columns = new List<TableColumn>();
 
     [TabGroup("Server")] public string sendURL;
@@ -80,9 +79,10 @@ public class DBEntitySetting
 
     [TabGroup("Server")]
     public bool hasMultipleLocalDB = false;
-    [TabGroup("Server")][ShowIf("hasMultipleLocalDB", false)] public string keyDownloadAPI;
-    [TabGroup("Server")][ShowIf("hasMultipleLocalDB", false)] public string keyFileName;
-    [TabGroup("Server")][ShowIf("hasMultipleLocalDB", false)] public string serverEmailFilePath;
+
+    [TabGroup("Server")] [ShowIf("hasMultipleLocalDB", false)] public string keyDownloadAPI;
+    [TabGroup("Server")] [ShowIf("hasMultipleLocalDB", false)] public string keyFileName;
+    [TabGroup("Server")] [ShowIf("hasMultipleLocalDB", false)] public string serverEmailFilePath;
 
     public void SetUpTextPath()
     {
@@ -93,32 +93,30 @@ public class DBEntitySetting
         }
     }
 
-/*
-    public DBEntitySetting(DBEntitySetting setting)
-    {
-        fileName = setting.fileName;
-        dbName = setting.fileName;
-        tableName = setting.fileName;
-        columns = setting.columns;
+    /*
+        public DBEntitySetting(DBEntitySetting setting)
+        {
+            fileName = setting.fileName;
+            dbName = setting.fileName;
+            tableName = setting.fileName;
+            columns = setting.columns;
 
-        sendURL = setting.sendURL;
-        serverResponsesArray = setting.serverResponsesArray;
+            sendURL = setting.sendURL;
+            serverResponsesArray = setting.serverResponsesArray;
 
-        hasMultipleLocalDB = setting.hasMultipleLocalDB;
-        keyDownloadURL = setting.keyDownloadURL;
-        keyFileName = setting.keyFileName;
-        serverEmailFilePath = setting.serverEmailFilePath;
-    }
-    */
+            hasMultipleLocalDB = setting.hasMultipleLocalDB;
+            keyDownloadURL = setting.keyDownloadURL;
+            keyFileName = setting.keyFileName;
+            serverEmailFilePath = setting.serverEmailFilePath;
+        }
+        */
 }
-
 
 [Serializable]
 public class TableColumn
 {
     [TableColumnWidth(80)] public string name;
     [TableColumnWidth(150)] public string attribute;
-    
 
     [TableColumnWidth(30)] public bool sync;
 

@@ -40,7 +40,9 @@ public class JSONSetter : MonoBehaviour
     {
         JObject jsonObj = LoadSetting();
 
-        if (!jsonObj.ContainsKey(name) && !string.IsNullOrEmpty(value))
+        JToken jvalue;
+        if (!jsonObj.TryGetValue(name, out jvalue) && !string.IsNullOrEmpty(value))
+        //if (!jsonObj.ContainsKey(name) && !string.IsNullOrEmpty(value))
         {
             jsonObj.Add(new JProperty(name, value));
         }
@@ -56,7 +58,10 @@ public class JSONSetter : MonoBehaviour
     {
         JObject jsonObj = LoadSetting();
 
-        if (!jsonObj.ContainsKey(name) && !string.IsNullOrEmpty(value))
+        JToken jvalue;
+        if (!jsonObj.TryGetValue(name, out jvalue) && !string.IsNullOrEmpty(value) && !string.IsNullOrEmpty(value))
+
+        //if (!jsonObj.ContainsKey(name) && !string.IsNullOrEmpty(value))
         {
             jsonObj.Add(new JProperty(name, value));
         }

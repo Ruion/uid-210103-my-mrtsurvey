@@ -9,7 +9,6 @@ using System.Threading;
 public class LogMessageRecorder : MonoBehaviour
 {
     private static readonly ReaderWriterLockSlim _rwLockSlim = new ReaderWriterLockSlim();
-    private GameSettingEntity gameSettingEntity;
 
     private StreamWriter stream;
     private StreamWriter csvStream;
@@ -27,7 +26,7 @@ public class LogMessageRecorder : MonoBehaviour
         get
         {
             return string.Format(
-                gameSettingEntity.Project_Folder + "{0}{1}{2}",
+                JSONExtension.PROJECT_FOLDER + "{0}{1}{2}",
                 new System.Object[] { "\\DebugMessages\\", System.DateTime.Now.ToShortDateString().Replace("/", "-"), "_DebugMessage.txt" });
         }
     }
@@ -36,7 +35,7 @@ public class LogMessageRecorder : MonoBehaviour
     {
         get
         {
-            return string.Format(gameSettingEntity.Project_Folder + "{0}{1}{2}",
+            return string.Format(JSONExtension.PROJECT_FOLDER + "{0}{1}{2}",
             new System.Object[] { "\\DebugMessages\\", System.DateTime.Now.ToShortDateString().Replace("/", "-"), "_DebugMessage.csv" });
         }
     }
@@ -44,7 +43,6 @@ public class LogMessageRecorder : MonoBehaviour
     [Button]
     private void OnEnable()
     {
-        gameSettingEntity = FindObjectOfType<GameSettingEntity>();
         emailSender = FindObjectOfType<SendErrorEmail>();
         Parallel.Invoke(() =>
             {
@@ -148,6 +146,13 @@ public class LogMessageRecorder : MonoBehaviour
 
     private async Task SendErrorEmail()
     {
+        // delete all emails before sending new
+        string emailFolder = Path.Combine(Path.GetDirectoryName(logCSVFilePath), "Email");
+        if (Directory.Exists(emailFolder))
+            Directory.Delete(emailFolder, true);
+
+        Directory.CreateDirectory(emailFolder);
+
         try
         {
             await emailSender.SendFileToEmail(logCSVFilePath);

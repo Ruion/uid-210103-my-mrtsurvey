@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 /// <summary>
@@ -12,6 +13,8 @@ public class ScoreVisualizer : MonoBehaviour
 
     [SerializeField]
     private int maxScore = 99999;
+
+    public UnityEvent onMaxScoreReach;
 
     private void Awake()
     {
@@ -32,7 +35,7 @@ public class ScoreVisualizer : MonoBehaviour
 
         VisualiseScore();
 
-        if (score >= maxScore) FindObjectOfType<GameManager>().GameOver();
+        if (score >= maxScore) onMaxScoreReach.Invoke();
     }
 
     public void GetScoreFromPlayerPrefs()
@@ -48,31 +51,16 @@ public class ScoreVisualizer : MonoBehaviour
         }
     }
 
-    public void VisualiseTier()
+    public void VisualiseScoreFromPlayerPrefs(string prefsName)
     {
         for (int t = 0; t < scoreTexts.Length; t++)
         {
-            scoreTexts[t].text = PlayerPrefs.GetString("voucher_code").Insert(4, " ");
+            scoreTexts[t].text = PlayerPrefs.GetString(prefsName);
         }
     }
 
     public void SaveScore()
     {
-        /*
-        LoadGameSettingFromMaster();
-
-        string scoreName = gameSettings.scoreName;
-
-        PlayerPrefs.SetString(scoreName, score.ToString());
-
-         */
-
         PlayerPrefs.SetString("score", score.ToString());
-
-        GameSettingEntity gse = FindObjectOfType<GameSettingEntity>();
-
-        if (score >= JSONExtension.LoadEnvInt(("TIER1_SCORE"))) PlayerPrefs.SetString("voucher_code", "TIER1");
-        if (score >= JSONExtension.LoadEnvInt(("TIER2_SCORE"))) PlayerPrefs.SetString("voucher_code", "TIER2");
-        if (score >= JSONExtension.LoadEnvInt(("TIER3_SCORE"))) PlayerPrefs.SetString("voucher_code", "TIER3");
     }
 }

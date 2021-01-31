@@ -10,13 +10,14 @@ public class AdminPagesManager : MonoBehaviour
     private Button currentButton;
     public Page[] pages;
     private GameObject selectedPage;
-    // Start is called before the first frame update
-    void OnEnable()
-    {
-        if(tabButtonContainer.childCount < 2) SpawnTabButtons();
 
-        if(selectedPage != null) selectedPage.SetActive(true);
-        else selectedPage = pages[pages.Length-1].page;
+    // Start is called before the first frame update
+    private void OnEnable()
+    {
+        if (tabButtonContainer.childCount < 2) SpawnTabButtons();
+
+        if (selectedPage != null) selectedPage.SetActive(true);
+        else selectedPage = pages[pages.Length - 1].page;
     }
 
     private void SpawnTabButtons()
@@ -33,18 +34,19 @@ public class AdminPagesManager : MonoBehaviour
             TMPro.TextMeshProUGUI label = newButton.GetComponentInChildren<TMPro.TextMeshProUGUI>();
             label.text = pages[p].page.name;
 
-            // Assign event ot button On Click ()            
+            // Assign event ot button On Click ()
             Button btn = newButton.GetComponent<Button>();
             int index = p;
-            btn.onClick.AddListener(delegate{
+            btn.onClick.AddListener(delegate
+            {
                 currentButton.interactable = true;
                 selectedPage.SetActive(false);
                 currentButton.transform.Find("Selectable Image").gameObject.SetActive(true);
-               // CloseAllPages();
-                 pages[index].page.SetActive(true);
-                 selectedPage = pages[index].page;
-                 currentButton = btn;
-                 currentButton.interactable = false;
+                // CloseAllPages();
+                pages[index].page.SetActive(true);
+                selectedPage = pages[index].page;
+                currentButton = btn;
+                currentButton.interactable = false;
             });
         }
 
@@ -55,6 +57,12 @@ public class AdminPagesManager : MonoBehaviour
     {
         CloseAllPages();
         gameObject.SetActive(false);
+    }
+
+    public void OpenPage(int pageIndex)
+    {
+        CloseAllPages();
+        pages[pageIndex].page.SetActive(true);
     }
 
     private void CloseAllPages()

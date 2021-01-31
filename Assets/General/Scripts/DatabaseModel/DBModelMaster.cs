@@ -69,27 +69,11 @@ public class DBModelMaster : SerializedMonoBehaviour
         dbSettings.dbName = name;
         dbSettings.keyFileName = name + " Online";
 
-        GameSettingEntity gse = FindObjectOfType<GameSettingEntity>().GetComponent<GameSettingEntity>();
-
         dbSettings.sendURL = JSONExtension.LoadEnv("SERVER_URL");
 
         // fetch & Update setting from Setting.json
 
-        dbSettings.folderPath = @"C:\UID-APP\" + JSONExtension.LoadEnv("PROJECT_CODE");
-
         Directory.CreateDirectory(Path.GetDirectoryName(dbSettings.folderPath + "\\Databases\\"));
-
-        // add api to Setting.json - playerdata_sendAPI : submit-player-data
-        DBSettingEntity[] dBSettingEntities = FindObjectsOfType<DBSettingEntity>();
-
-        //JSONSetter jsonSetter = gse.jsonSetter;
-        foreach (DBSettingEntity e in dBSettingEntities)
-        {
-            if (string.IsNullOrEmpty(e.dbSettings.sendAPI)) continue;
-
-            // save to Settings.json
-            JSONExtension.SaveSetting(gse.SettingFilePath, e.dbSettings.fileName + "-API", e.dbSettings.sendAPI);
-        }
 
         // save to json file
         JSONExtension.SaveObject(dbSettings.folderPath + "\\Settings\\" + name, dbSettings);
@@ -99,33 +83,16 @@ public class DBModelMaster : SerializedMonoBehaviour
     [ButtonGroup("Setting")]
     public virtual void LoadSetting()
     {
-        GameSettingEntity gse = FindObjectOfType<GameSettingEntity>().GetComponent<GameSettingEntity>();
-
-        // fetch & Update setting from global JSONSetter
-
-        dbSettings.folderPath = gse.Project_Folder;
-
         string filePath = dbSettings.folderPath + "\\Settings\\" + name;
 
         // Load from json file
         dbSettings = JsonConvert.DeserializeObject<DBEntitySetting>(File.ReadAllText(filePath + ".json"));
 
-        // fetch & Update setting from global JSONSetter
-        //JSONSetter jsonSetter = gse.jsonSetter;
-
-        //JObject jObject = jsonSetter.LoadSetting();
-        JObject jObject = JSONExtension.LoadJson(gse.SettingFilePath);
-        dbSettings.sendURL = gse.Server_URL;
-
-        dbSettings.folderPath = gse.Project_Folder;
+        //dbSettings.folderPath = gse.Project_Folder;
 
         var substrings = new[] { "api" };
         if (!dbSettings.sendURL.ContainsAny(substrings, StringComparison.CurrentCultureIgnoreCase))
-            //dbSettings.sendURL += "public/api/";
-            dbSettings.sendURL += JSONExtension.LoadEnvBool("DEBUG_MODE") ? JSONExtension.LoadEnv("API_ROUTE_DEBUG") : JSONExtension.LoadEnv("API_ROUTE");
-
-        // load sendAPI from global setting file
-        if (jObject.ContainsKey(dbSettings.fileName + "-API")) dbSettings.sendAPI = jObject[dbSettings.fileName + "-API"].ToString();
+            dbSettings.sendURL += "public/api/";
     }
 
     #endregion Basics

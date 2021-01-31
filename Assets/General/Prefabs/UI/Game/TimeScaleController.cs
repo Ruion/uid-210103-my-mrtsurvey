@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// TimeScaleController change the speed of app. Using this, You can increase the speed of 
+/// TimeScaleController change the speed of app. Using this, You can increase the speed of
 /// Time.timeScale to speed up testing.
 /// </summary>
-public class TimeScaleController : GameSettingEntity
+public class TimeScaleController : MonoBehaviour
 {
     public Slider slider;
 
     private void OnEnable()
     {
-        if (!gameSettings.debugMode) gameObject.SetActive(false);
+        if (!JSONExtension.LoadEnvBool("DEBUG_MODE")) gameObject.SetActive(false);
     }
 
     public void ChangeTimeScale()

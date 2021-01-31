@@ -11,8 +11,8 @@ public class VoucherDistributionDBModelEntity : DBModelEntity
 {
     public string syncFileName = "";
     public string syncDeleteFileName = "";
-    private string filePath { get { return System.IO.Path.Combine(FindObjectOfType<GameSettingEntity>().Project_Folder, syncFileName); } }
-    private string deletedListFilePath { get { return System.IO.Path.Combine(FindObjectOfType<GameSettingEntity>().Project_Folder, syncDeleteFileName); } }
+    private string filePath { get { return System.IO.Path.Combine(JSONExtension.SERVER_URL, syncFileName); } }
+    private string deletedListFilePath { get { return System.IO.Path.Combine(JSONExtension.SERVER_URL, syncDeleteFileName); } }
     private string file;
 
     protected override void OnEnable()

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-    
+using Unity.Collections;
+using Sirenix.OdinInspector;
+
 /// <summary>
 /// Class use by EventConditional to compare scriptableScore.score is lower or higher than score to win game.
 /// </summary>
@@ -9,40 +9,44 @@ using Newtonsoft.Json;
 public class ScoreCondition
 {
     public string scoreName;
-    public int score{ get{return System.Int32.Parse(PlayerPrefs.GetString(scoreName));} }
+    public int score { get { return System.Int32.Parse(PlayerPrefs.GetString(scoreName)); } }
+
+    [HideIf("useEnvSetting", false)]
     public int minimumScore;
+
+    public bool useEnvSetting = true;
+    public string envSettingName = "GAME_WIN_SCORE";
 }
 
-public class EventConditional : MonoBehaviour {
+public class EventConditional : MonoBehaviour
+{
     public ScoreCondition[] scoreConditions;
-    [ReadOnly]public bool conditionIsPass = true;
-  
-    public EventSequencer OnWin;
-    public EventSequencer OnLose;
+    [Unity.Collections.ReadOnly] public bool conditionIsPass = true;
 
-/// <summary>
-/// Execute unity events base on score value of ScroreCardCondition[] objects. The score lower than minimumScore in any ScoreCardCondition count as not pass.
-/// </summary>
-	public void ExecuteScriptableScoreCondition()
+    public EventSequencer OnConditionPass;
+    public EventSequencer OnConditionFail;
+
+    /// <summary>
+    /// Execute unity events base on score value of ScroreCardCondition[] objects. The score lower than minimumScore in any ScoreCardCondition count as not pass.
+    /// </summary>
+    public void ExecuteScriptableScoreCondition()
     {
-        JSONSetter globalSetting = FindObjectOfType<JSONSetter>();
-        JObject jObject = globalSetting.LoadSetting();
-
         for (int i = 0; i < scoreConditions.Length; i++)
         {
-           //  if(scoreConditions[i].score < System.Int32.Parse(jObject["tier2Score"].ToString())) conditionIsPass = false;
-            if(scoreConditions[i].score < System.Int32.Parse(jObject["tier2Score"].ToString())) conditionIsPass = false;
+            int minimumScore = scoreConditions[i].minimumScore;
+            if (scoreConditions[i].useEnvSetting)
+                minimumScore = JSONExtension.LoadEnvInt(scoreConditions[i].envSettingName);
 
-            //if (scoreConditions[i].score < scoreConditions[i].minimumScore) conditionIsPass = false;        
+            if (scoreConditions[i].score < minimumScore) conditionIsPass = false;
         }
 
         if (conditionIsPass)
         {
-           if(OnWin.events.Length > 0) OnWin.Run();
+            if (OnConditionPass.events.Length > 0) OnConditionPass.Run();
         }
         else
-        {           
-            if(OnLose.events.Length > 0) OnLose.Run();
+        {
+            if (OnConditionFail.events.Length > 0) OnConditionFail.Run();
         }
     }
 }

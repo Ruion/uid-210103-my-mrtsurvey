@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Game;
 
 /// <summary>
 /// Master class for Saving and Retrieving gameplay settings.
@@ -8,7 +9,7 @@
 public class GameSettingEntity : MonoBehaviour
 {
     //  [Header("GameSetting - SAVE setting every new project")]
-    public Settings gameSettings;
+    public Game.Settings gameSettings;
 
     public JSONSetter jsonSetter;
 
@@ -66,9 +67,7 @@ public class GameSettingEntity : MonoBehaviour
     [ContextMenu("Awake")]
     protected virtual void Awake()
     {
-        //if (jsonSetter == null) jsonSetter = FindObjectOfType<JSONSetter>();
         LoadSetting();
-        //LoadGameSettingFromMaster();
     }
 }
 

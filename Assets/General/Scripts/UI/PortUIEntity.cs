@@ -72,6 +72,7 @@ public class PortUIEntity : MonoBehaviour
     {
         Image[] imgs = portParent.GetComponentsInChildren<Image>();
 
+        stockDb.LoadSetting();
         DataRowCollection drc = stockDb.ExecuteCustomSelectQuery("SELECT * FROM " + stockDb.dbSettings.tableName);
         for (int i = 0; i < drc.Count; i++)
         {
@@ -193,7 +194,7 @@ public class PortUIEntity : MonoBehaviour
 
     public void RefillAll()
     {
-        DataRowCollection motors = stockDb.ExecuteCustomSelectQuery("SELECT * FROM " + stockDb.dbSettings.tableName);
+        DataRowCollection motors = stockDb.ExecuteCustomSelectQuery("SELECT * FROM " + stockDb.dbSettings.tableName + " WHERE item_limit > 0");
         stockDb.ConnectDb();
         refillRecordDb.ConnectDb();
 

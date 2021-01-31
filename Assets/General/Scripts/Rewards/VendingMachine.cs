@@ -520,7 +520,7 @@ public byte aa;*/
 
     public void SendToPort(byte[] bytes)
     {
-        if (FindObjectOfType<GameSettingEntity>().gameSettings.debugMode)
+        if (JSONExtension.LoadEnvBool("DEBUG_MODE"))
         {
             OpenPort();
             PortReset();

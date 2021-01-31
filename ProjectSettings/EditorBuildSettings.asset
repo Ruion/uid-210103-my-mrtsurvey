@@ -11,13 +11,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/General/Scenes/VendingMachineDropper.unity
     guid: a696561cf3a4c9a49bb8bb4cbd5887bd
-  - enabled: 1
+  - enabled: 0
     path: Assets/General/Scenes/AutoSync.unity
     guid: addc0f12bf966f442a88ab826753a583
   - enabled: 0
     path: Assets/General/Scenes/VendingMachineTester.unity
     guid: a90eace5ea8edfc46af49c1d0be94028
-  - enabled: 0
+  - enabled: 1
     path: Assets/MRT-SURVEY-APP/MRT-SURVEY-LIVE.unity
     guid: 79be352ee4040504ca3609b4b2c6a96e
+  - enabled: 0
+    path: Assets/General/Scenes/AutoUpdater/Launcher.unity
+    guid: a0918e56455236740bd533fdb05ba293
   m_configObjects: {}

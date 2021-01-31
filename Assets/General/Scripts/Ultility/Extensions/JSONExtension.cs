@@ -8,6 +8,24 @@ using System.Reflection;
 
 public static class JSONExtension
 {
+    public static string SERVER_URL { get { return LoadEnv("SERVER_URL").ToString(); } }
+
+    public static string PROJECT_FOLDER
+    {
+        get
+        {
+            return @"C:\UID-APP\" + LoadEnv("PROJECT_CODE").ToString();
+        }
+    }
+
+    public static string SETTING_FILE_PATH
+    {
+        get
+        {
+            return @"C:\UID-APP\" + LoadEnv("PROJECT_CODE").ToString() + "\\Settings\\Setting";
+        }
+    }
+
     public static void SaveObject(string filePath, System.Object Object)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(filePath));
@@ -22,14 +40,14 @@ public static class JSONExtension
 
         JObject jsonObj = LoadJson(filePath);
 
-        if (!jsonObj.ContainsKey(pName))
-        {
+        JToken value;
+        if (jsonObj.TryGetValue(pName, out value))
             jsonObj.Add(new JProperty(pName, pValue));
-        }
+
+        //if (!jsonObj.ContainsKey(pName))
+        //jsonObj.Add(new JProperty(pName, pValue));
         else
-        {
             jsonObj[pName] = pValue;
-        }
 
         File.WriteAllText(filePath + ".json", JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
         Debug.Log(string.Format("Save to file {0}", filePath + ".json"));
@@ -42,7 +60,10 @@ public static class JSONExtension
 
         JObject jsonObj = LoadJson(filePath);
 
-        if (!jsonObj.ContainsKey(pName))
+        JToken value;
+        if (!jsonObj.TryGetValue(pName, out value))
+        //jsonObj.Add(new JProperty(pName, pValue));
+        //if (!jsonObj.ContainsKey(pName))
         {
             Debug.LogError("Property not exist in setting : " + pName);
             return null;
@@ -53,11 +74,27 @@ public static class JSONExtension
         }
     }
 
+    public static void SaveEnv(string pName, string pValue)
+    {
+        JObject jsonObj = LoadJson(@"C:\UID-APP\env.json");
+
+        JToken value;
+        if (jsonObj.TryGetValue(pName, out value))
+            //if (!jsonObj.ContainsKey(pName))
+            jsonObj.Add(new JProperty(pName, pValue));
+        else
+            jsonObj[pName] = pValue;
+
+        File.WriteAllText(@"C:\UID-APP\env.json", JsonConvert.SerializeObject(jsonObj, Formatting.Indented));
+    }
+
     public static string LoadEnv(string pName)
     {
         JObject jsonObj = LoadJson(@"C:\UID-APP\env.json");
 
-        if (!jsonObj.ContainsKey(pName))
+        JToken value;
+        if (!jsonObj.TryGetValue(pName, out value))
+        //if (!jsonObj.ContainsKey(pName))
         {
             Debug.LogError("Property not exist in setting : " + pName);
             return null;
@@ -72,7 +109,10 @@ public static class JSONExtension
     {
         JObject jsonObj = LoadJson(@"C:\UID-APP\env.json");
 
-        if (!jsonObj.ContainsKey(pName))
+        JToken value;
+        if (!jsonObj.TryGetValue(pName, out value))
+
+        //if (!jsonObj.ContainsKey(pName))
         {
             Debug.LogError("Property not exist in setting : " + pName);
             return 999999;
@@ -87,7 +127,10 @@ public static class JSONExtension
     {
         JObject jsonObj = LoadJson(@"C:\UID-APP\env.json");
 
-        if (!jsonObj.ContainsKey(pName))
+        JToken value;
+        if (!jsonObj.TryGetValue(pName, out value))
+
+        //if (!jsonObj.ContainsKey(pName))
         {
             Debug.LogError("Property not exist in setting : " + pName);
             return false;

@@ -1635,7 +1635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 229.2801, y: 0}
+  m_AnchoredPosition: {x: 229.28009, y: 0}
   m_SizeDelta: {x: 229.3, y: 132.83}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &165202721
@@ -3543,11 +3543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 495d1764773e7fa4ebc636df1fde5b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emailFrom: liewyeat@gmail.com
-  emailTarget: asher_liew@uid.asia
-  emailPassword: asherIkeman@22
-  emailSubject: MRTVM01
-  emailBody: Error
   attachmentPath: C:\UID-APP\200202-MY-Genting-QR\DebugMessages\11-26-2020_DebugMessage.csv
 --- !u!1 &355108364
 GameObject:
@@ -7331,7 +7326,6 @@ MonoBehaviour:
       Data: 
   dbSettings:
     fileName: AdminActionDBModelEntity
-    folderPath: C:\UID-APP\200202-MY-Genting-QR
     dbName: AdminActionDBModelEntity
     tableName: AdminActionDBModelEntity
     columns:
@@ -18522,7 +18516,7 @@ PrefabInstance:
     - target: {fileID: 8146775650850153184, guid: d901f848e1436bd43a4395c1ff044dfd,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -218.39983
+      value: -218.39984
       objectReference: {fileID: 0}
     - target: {fileID: 8199291187325512884, guid: d901f848e1436bd43a4395c1ff044dfd,
         type: 3}

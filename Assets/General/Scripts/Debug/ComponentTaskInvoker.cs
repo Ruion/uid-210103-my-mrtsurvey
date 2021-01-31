@@ -28,7 +28,6 @@ public class ComponentTaskInvoker : MonoBehaviour
 
     protected void VerifyDebugMode()
     {
-        isDebugging = FindObjectOfType<GameSettingEntity>().gameSettings.debugMode;
-       
+        isDebugging = JSONExtension.LoadEnvBool("DEBUG_MODE");
     }
 }
