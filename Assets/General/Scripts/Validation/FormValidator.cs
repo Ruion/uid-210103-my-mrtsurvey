@@ -160,6 +160,13 @@ public class FormField
 
     [TabGroup("Field")]
     [HideIf("inputType", SaveType.Consent, false)]
+    //[VerticalGroup("Fields/Left")]
+    [LabelText("RegexPattern After Format(optional)")]
+    [PropertyTooltip(@"Regex pattern that validate value of Text Field. When dropdown is provided, regext will validate value of Drop Down + Text Field")]
+    public string regexPatternAfterFormat;
+
+    [TabGroup("Field")]
+    [HideIf("inputType", SaveType.Consent, false)]
     //[VerticalGroup("Fields/Right")]
     [PropertyTooltip("Tick to check for duplication. You must provide either a Database Model component or Data txt file")]
     public bool isUnique = false;
@@ -260,6 +267,9 @@ public class FormField
     public string networkValidationAPI;
 
     private HttpClient webRequest;
+
+    [TabGroup("Field")]
+    public FormValidatorFormatter valueFormatter;
 
     [TabGroup("Events")]
     //[VerticalGroup("Fields/Left")]
@@ -427,6 +437,14 @@ public class FormField
                 // check regex match
                 //isValid = Regex.IsMatch(processedValue, regexPattern);
                 isValid = Regex.Matches(processedValue, regexPattern).Count == 1;
+
+            if (valueFormatter != null && isValid)
+            {
+                string valiedateProcessedValue = valueFormatter.FormatTextForValidate(processedValue);
+                if (!string.IsNullOrEmpty(regexPatternAfterFormat)) isValid = Regex.Matches(valiedateProcessedValue, regexPatternAfterFormat).Count >= 1;
+
+                //if (!isValid) Debug.LogError($"{fieldName} condition not match 2nd regex - {valiedateProcessedValue}");
+            }
 
             if (useValidator)
             {

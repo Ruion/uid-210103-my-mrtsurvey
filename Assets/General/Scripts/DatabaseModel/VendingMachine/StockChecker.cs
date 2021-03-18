@@ -17,18 +17,18 @@ public class StockChecker : MonoBehaviour
         InvokeRepeating("CheckStock", 2f, checkStockSeconds);
     }
 
-    private void CheckStock()
+    public void CheckStock()
     {
         int remainAmount = System.Int32.Parse(sDb.ExecuteCustomSelectObject("SELECT COUNT(quantity) FROM " + sDb.dbSettings.tableName + " WHERE quantity > 0 AND item_limit > 0 AND is_disabled = 'false'").ToString());
-        //int tier1RemainAmount = System.Int32.Parse(sDb.ExecuteCustomSelectObject("SELECT COUNT(id) FROM " + sDb.dbSettings.tableName + " WHERE quantity > 0 AND is_disabled = 'false' AND voucher_code = 'TIER1'").ToString());
-        //int tier2RemainAmount = System.Int32.Parse(sDb.ExecuteCustomSelectObject("SELECT COUNT(id) FROM " + sDb.dbSettings.tableName + " WHERE quantity > 0 AND is_disabled = 'false' AND voucher_code = 'TIER2'").ToString());
-        //int tier3RemainAmount = System.Int32.Parse(sDb.ExecuteCustomSelectObject("SELECT COUNT(id) FROM " + sDb.dbSettings.tableName + " WHERE quantity > 0 AND is_disabled = 'false' AND voucher_code = 'TIER3'").ToString());
+        //int remainAmount = System.Int32.Parse(sDb.ExecuteCustomSelectObject("SELECT SUM(quantity) FROM " + sDb.dbSettings.tableName + " WHERE quantity > 0 AND item_limit > 0 AND is_disabled = 'false'").ToString());
 
         bool isOutOfStock = false;
-        // Debug.Log(name + " - CheckStock() : Vending Machine item remain " + stockRemainAmount);
+        Debug.Log(name + " - CheckStock() : Vending Machine item remain " + remainAmount);
+        Debug.Log(name + $" { sDb.dbSettings.folderPath}");
 
         // if out of stock
         if (remainAmount < 1)
+            //if (remainAmount < 10)
             isOutOfStock = true;
         else
         {
